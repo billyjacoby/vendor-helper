@@ -1,2 +1,2 @@
 # django-wireframe
-A basis for most jango-based website applications
+A basis for most django-based website applications
