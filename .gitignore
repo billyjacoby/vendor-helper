@@ -1,3 +1,8 @@
+#added by me:
+.DS_Store
+/wireframe/wireframe/local_settings.py
+.dbsqlite3
+.pyc
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
