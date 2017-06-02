@@ -1,0 +1,116 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html>
+<head lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/static/css/custom.css" />
+</head>
+<body>
+
+  <div class="conatiner-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-title">
+          {% block page-header %}<h1><strong>Default Page Header</strong><br /><small>page subtext</small></h1>{% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% block nav %}
+  <div class="navigation">
+    <header class="navbar navbar-inverse #navbar-fixed-top bs-docs-nav" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" class="navbar-brand">Your Company</a>
+      </div>
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="#"><small>Login</small></a></li>
+          <li><a href="#"><small>Sign Up</small></a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% block home%}<li>{% endblock %}<a href="{% url 'index' %}">Home</a></li>
+          {% block about%}<li>{% endblock %}<a href="{% url 'about' %}">About</a></li>
+          {% block contact%}<li>{% endblock %}<a href="{% url 'contact' %}">Contact</a></li>
+          <li class="dropdown">
+	           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Company Blog <b class="caret"></b></a>
+	            <ul class="dropdown-menu">
+	               <li><a href="#">Action</a></li>
+	               <li><a href="#">Another action</a></li>
+	               <li><a href="#">Something else here</a></li>
+	               <li><a href="#">Separated link</a></li>
+	               <li><a href="#">One more separated link</a></li>
+	            </ul>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  </div>
+  {% endblock %}
+
+  {% block content %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3">
+        <a href="#" class="thumbnail">
+          <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTVjNjYxNTNkMmIgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNWM2NjE1M2QyYiI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44NTE1NjI1IiB5PSIxMDUuMzYyNSI+MjQyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" alt="...">
+        </a>
+        <p class="small text-justify">
+          {% lorem %}
+        </p>
+      </div>
+      <div class="col-sm-3">
+        <p class="text-left">
+          {% lorem %}
+        </p>
+        <p class="text-right">
+          {% lorem %}
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <p  class="lead text-center">
+            {% lorem %}
+          </p>
+          <p class="text-center">
+            {% lorem %}
+          </p>
+          <p class="text-center">
+            {% lorem %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block footer %}
+    <div class="container-fluid" id="footer">
+      <div class="row">
+        <div class="col-sm-12">
+        <footer>
+          <center>
+            <hr />
+            <p style="z-index:9999999;" class="small text-center">Website created by <a href="http://www.prometheus-ts.com/">Prometheus Technology Solutions</a></p>
+          </center>
+        </footer>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</html>

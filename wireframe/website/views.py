@@ -7,3 +7,11 @@ from django.shortcuts import render
 def index(request):
     content = {}
     return render(request, 'website/index.html', content)
+
+def about(request):
+    content = {}
+    return render(request, 'website/about.html', content)
+
+def contact(request):
+    content = {}
+    return render(request, 'website/contact.html', content)

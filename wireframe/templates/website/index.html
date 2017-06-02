@@ -1,11 +1,7 @@
-{% extends 'website/base.html' %}
+{% extends 'base.html' %}
 
-{% block content %}
-<h1>Welcome!<br /><small>to my very naked django wireframe...</small></h1>
-
-<ul>
-  <a href="#">Login</a>
-  <a href="#">Sign Up</a>
-</ul>
-
+{% block page-header %}
+  <h1><strong>Home Page</strong><br /><small>Welcome to the home page!</small></h1>
 {% endblock %}
+
+{% block home %}<li class="active">{% endblock %}
