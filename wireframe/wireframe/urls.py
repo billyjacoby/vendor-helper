@@ -19,7 +19,8 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('website.urls'))
+    url(r'^', include('website.urls')),
+    url(r'^blog/', include('blog.urls')),
 ]
 
 if not settings.DEBUG:

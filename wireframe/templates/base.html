@@ -43,10 +43,10 @@
           {% block home%}<li>{% endblock %}<a href="{% url 'index' %}">Home</a></li>
           {% block about%}<li>{% endblock %}<a href="{% url 'about' %}">About</a></li>
           {% block contact%}<li>{% endblock %}<a href="{% url 'contact' %}">Contact</a></li>
-          <li class="dropdown">
+          {% block blog %}<li class="dropdown">{% endblock %}
 	           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Company Blog <b class="caret"></b></a>
 	            <ul class="dropdown-menu">
-	               <li><a href="#">Action</a></li>
+	               <li><a href="{% url 'blog home' %}">Blog Home</a></li>
 	               <li><a href="#">Another action</a></li>
 	               <li><a href="#">Something else here</a></li>
 	               <li><a href="#">Separated link</a></li>

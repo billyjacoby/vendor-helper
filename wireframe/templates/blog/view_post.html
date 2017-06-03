@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block page-header %}
+  <h1><strong>View Blog Post</strong><br /><small>Subtext about the blog!</small></h1>
+{% endblock %}
+
+{% block blog %}<li class="dropdown active">{% endblock %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.body }}</p>
+{% endblock %}
