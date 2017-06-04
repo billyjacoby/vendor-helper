@@ -7,28 +7,23 @@
 {% block blog %}<li class="dropdown active">{% endblock %}
 
 {% block content %}
-  <h2>Categories</h2>
-  {% if categories %}
-    <ul>
-      {% for category in categories %}
-      <li>
-        <a href="{{ category.get_absolute_url }}">{{ category.title}}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>
-      There are no posts.
-    </p>
-  {% endif %}
-
-  <h2>Posts</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+  <center><h2>Recent Blog Posts</h2></center>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
   {% if posts %}
-  <ul>
+  <ul class="list-group">
     {% for post in posts %}
-    <li>
-      <a href="{{ post.get_absolute_url }}">{{ post.title}}</a>
+    {% if forloop.counter0  < 5 %}
+    <li class="list-group-item">
+      <center><a href="{{ post.get_absolute_url }}">{{ post.title}} - {{post.posted}}</a></center>
     </li>
+    {% endif %}
     {% endfor %}
   </ul>
   {% else %}
@@ -36,5 +31,9 @@
       There are no posts.
     </p>
   {% endif %}
-  
+  </div>
+  </div>
+
+</div>
+
 {% endblock %}

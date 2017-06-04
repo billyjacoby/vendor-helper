@@ -7,6 +7,13 @@
 {% block blog %}<li class="dropdown active">{% endblock %}
 
 {% block content %}
-  <h2>{{ post.title }}</h2>
-  <p>{{ post.body }}</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-1">
+      <img src="{{ post.image }}" />
+    </div>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.body }}</p>
+  </div>
+</div>
 {% endblock %}

@@ -12,6 +12,7 @@ class Blog(models.Model):
     body = models.TextField()
     posted = models.DateTimeField(db_index=True, auto_now_add=True)
     category = models.ForeignKey('blog.Category')
+    image = models.ImageField(upload_to="media/images/blog_images/", blank=True )
 
     def __unicode__(self):
         return '%s' % self.title

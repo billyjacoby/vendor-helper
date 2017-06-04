@@ -8,7 +8,7 @@ from .models import Blog, Category
 
 def blog_home(request):
     content = {'categories': Category.objects.all(),
-                'posts': Blog.objects.all()[:5],
+                'posts': Blog.objects.all().order_by('-posted')[:5],
                 }
     return render_to_response('blog/home.html', content)
 

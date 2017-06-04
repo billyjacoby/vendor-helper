@@ -147,22 +147,23 @@ STATICFILES_LOCATION = 'static'
 
 ADMINS = (('Billy Jacoby', 'billyjacoby@me.com'),)
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-"""
-AWS Settings (must add /.aws/config or something)
+#AWS Settings (must add /.aws/config or something)
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_ACCESS_KEY_ID = "ENTER ACCESS KEY ID HERE"
-AWS_SECRET_ACCESS_KEY = "ENTER SECRET KEY HERE"
-AWS_STORAGE_BUCKET_NAME = "ENTER BUCKET NAME HERE"
+AWS_ACCESS_KEY_ID = "AKIAJSUFYMZ3IFD32HYA"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "django-wireframe"
 
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 AWS_QUERYSTRING_AUTH = False
-AWS_S3_REGION_NAME = "us-east-2"
-"""
+#AWS_S3_REGION_NAME = "us-east-2"
+
 
 
 try:
