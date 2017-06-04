@@ -9,9 +9,11 @@
 {% block content %}
 <div class="container-fluid">
   <div class="row">
+    {% if post.image %}
     <div class="col-sm-3">
       <img src="{{ post.image.url }}" />
     </div>
+    {% endif %}
     <div class="col-sm-offset-1 col-sm-8">
       <h2>{{ post.title }}</h2>
       <p>{{ post.body }}</p>
