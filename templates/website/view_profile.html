@@ -6,5 +6,11 @@
 {% endblock %}
 
 {% block content %}
-  {{user.verified_email}}
+<p>Username: {{user.username}}</p>
+<p>First Name: {{user.first_name}}</p>
+<p>Last Name: {{user.last_name}}</p>
+<p>Email: {{user.email}}</p>
+<p>Company Name: {{user.userprofile.company_name}}</p>
+  <p>Verified Email: {{user.userprofile.verified_email}}</p>
+
 {% endblock %}
