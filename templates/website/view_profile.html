@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}{{user.username}}{% endblock %}
+{% block page-header %}
+  <h1><strong>Profile Page</strong><br /><small>Profile Page Subtext</small></h1>
+{% endblock %}
+
+{% block content %}
+  {{user.verified_email}}
+{% endblock %}

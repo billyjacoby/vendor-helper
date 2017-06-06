@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} Register{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+  <div class="row">
+  <div class="col-md-offset-4 col-lg-offset-4 col-md-4">
+<h1><strong>Sign Up:</strong></h1>
+<br><br>
+<form method="post" action="." enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label for="first_name">First Name</label>
+    {% if form.first_name.errors %}
+    <div class="alert alert-danger">
+      <strong>{{form.first_name.errors}}</strong>
+    </div>
+    {% endif %}
+    <input type="text" class="form-control" name="first_name" placeholder="First Name">
+  </div>
+
+  <div class="form-group">
+    <label for="last_name">Last Name</label>
+    {% if form.last_name.errors %}
+    <div class="alert alert-danger">
+      <strong>{{form.last_name.errors}}</strong>
+    </div>
+    {% endif %}
+    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+  </div>
+
+  <div class="form-group">
+    <label for="company_name">Company Name</label>
+    {% if form.company_name.errors %}
+    <div class="alert alert-danger">
+      <strong>{{form.company_name.errors}}</strong>
+    </div>
+    {% endif %}
+    <input type="text" class="form-control" name="company_name" placeholder="Company Name">
+  </div>
+
+  <div class="form-group">
+    <label for="username">Username</label>
+    {% if form.username.errors %}
+    <div class="alert alert-danger">
+      <strong>{{form.username.errors}}</strong>
+    </div>
+    {% endif %}
+    <input type="text" class="form-control" name="username" placeholder="Username">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    {% if form.email.errors %}
+    <div class="alert alert-danger">
+      <strong>{{form.email.errors}}</strong>
+    </div>
+    {% endif %}
+    <input type="email" class="form-control" name="email" placeholder="YourName@YourSite.com">
+  </div>
+
+  <div class="form-group">
+    <label for="password1">Password</label>
+    {% if form.password.errors %}
+    <div class="alert alert-danger">
+      <strong>{{form.password1.errors}}</strong>
+    </div>
+    {% endif %}
+    <input type="password" class="form-control" name="password1" placeholder="Password">
+  </div>
+
+  <div class="form-group">
+    <label for="password1">Re-Enter Password</label>
+    {% if form.password2.errors %}
+    <div class="alert alert-danger">
+      <strong>{{form.password2.errors}}</strong>
+    </div>
+    {% endif %}
+    <input type="password" class="form-control" name="password2" placeholder="Re-Enter Password">
+  </div>
+  <!--{{ form.as_p }}-->
+
+  <input class="btn btn-primary btn-lg" type="submit" value="{% trans 'Submit' %}" />
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

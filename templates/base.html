@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="/static/css/custom.css" />
-  <title>Wireframe Website</title>
+  <title>Wireframe Website - {% block title %}Home{% endblock %}</title>
 </head>
 <body>
 
@@ -37,8 +37,13 @@
       </div>
       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav navbar-left">
-          <li><a href="#"><small>Login</small></a></li>
-          <li><a href="#"><small>Sign Up</small></a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'view_profile' %}"><small>{{user.username}}</small></a></li>
+          <li><a href="{% url 'auth_logout' %}"><small>logout</small></a></li>
+          {% else %}
+          <li><a href="{% url 'auth_login' %}"><small>Login</small></a></li>
+          <li><a href="{% url 'registration_register' %}"><small>Sign Up</small></a></li>
+          {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
           {% block home%}<li>{% endblock %}<a href="{% url 'index' %}">Home</a></li>
@@ -48,8 +53,8 @@
 	           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Company Blog <b class="caret"></b></a>
 	            <ul class="dropdown-menu">
 	               <li><a href="{% url 'blog home' %}">Blog Home</a></li>
-	               <li><a href="#">Another action</a></li>
-	               <li><a href="#">Something else here</a></li>
+	               <li><a href="#">Newest Post</a></li>
+	               <li><a href="#">All Posts</a></li>
 	               <li><a href="#">Separated link</a></li>
 	               <li><a href="#">One more separated link</a></li>
 	            </ul>
