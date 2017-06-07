@@ -17,16 +17,16 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 
-# for complicated regsitration bullshit
-from website.forms import UserProfileRegistrationForm
+# for regsitration
+from reg_extras.forms import UserProfileRegistrationForm
 from registration.views import RegistrationView
-import website
 import regbackend
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('website.urls')),
     url(r'^blog/', include('blog.urls')),
+    #for account registration
     url(r'^accounts/register/$', regbackend.MyRegistrationView.as_view() ,name='registration_register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
 ]

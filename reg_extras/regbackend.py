@@ -1,6 +1,6 @@
 from registration.backends.default.views import RegistrationView
-from website.forms import UserProfileRegistrationForm
-from website.models import UserProfile
+from reg_extras.forms import UserProfileRegistrationForm
+from reg_extras.models import UserProfile
 
 from django.contrib.sites.shortcuts import get_current_site
 

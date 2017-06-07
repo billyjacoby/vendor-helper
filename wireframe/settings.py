@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'registration',
     'crispy_forms',
     #my apps
+    'reg_extras',
     'website',
     'blog',
 ]
@@ -168,7 +169,7 @@ AWS_QUERYSTRING_AUTH = False
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/view_profile/'
 
 # Email Settings:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
