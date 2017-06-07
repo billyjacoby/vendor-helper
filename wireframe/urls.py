@@ -20,7 +20,7 @@ from django.conf import settings
 # for regsitration
 from reg_extras.forms import UserProfileRegistrationForm
 from registration.views import RegistrationView
-import regbackend
+from reg_extras import regbackend
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
