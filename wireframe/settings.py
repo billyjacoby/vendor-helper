@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['django-wireframe.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    #third party app
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #third party apps
-    'registration',
     'crispy_forms',
     #my apps
     'reg_extras',
@@ -169,7 +170,7 @@ AWS_QUERYSTRING_AUTH = False
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = '/view_profile/'
+LOGIN_REDIRECT_URL = "/profile/view/"
 
 # Email Settings:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -181,6 +182,8 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 AUTH_PROFILE_MODULE = 'website.UserProfile'
+
+CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 try:
     from .local_settings import *

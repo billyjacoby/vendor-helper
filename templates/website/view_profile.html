@@ -2,15 +2,95 @@
 
 {% block title %}{{user.username}}{% endblock %}
 {% block page-header %}
-  <h1><strong>Profile Page</strong><br /><small>Profile Page Subtext</small></h1>
+  <h1><strong>{{user.first_name|title}} {{user.last_name|title}}'s Profile Page</strong><br /><small>Profile Page Subtext</small></h1>
 {% endblock %}
 
 {% block content %}
-<p>Username: {{user.username}}</p>
-<p>First Name: {{user.first_name}}</p>
-<p>Last Name: {{user.last_name}}</p>
-<p>Email: {{user.email}}</p>
-<p>Company Name: {{user.userprofile.company_name}}</p>
-  <p>Verified Email: {{user.userprofile.verified_email}}</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <center>
+            <h3>User Status is:
+            {% if user.is_superuser %}
+            <strong><a href="/admin/"> Administrator</a></strong></h3>
+            {% elif user.is_staff %}
+              <strong>Staff</strong></h3>
+            {% elif user.is_active %}
+              <strong>Active</strong></h3>
+            {% else %}
+              <strong>Error</strong></h3>
+            {% endif %}
+          </center>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <ul class="list-group">
+        <li class="list-group-item"><center>Account created on {{user.date_joined}}</center></li>
+        <li class="list-group-item">
+          {% if user.last_login %}
+          <center><strong>Last logged in on {{user.last_login}}</strong></center>
+          {% else %}
+          <center>You have never been logged in..?</center>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+
+
+
+
+  <br />
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <table class="table">
+          <tr>
+            <th>Username: </th>
+            <td class="text-left">{{user.username}}</td>
+          </tr>
+          <tr>
+            <th>First Name: </th>
+            <td class="text-left">{{user.first_name}}</td>
+          </tr>
+          <tr>
+            <th>Last Name: </th>
+            <td class="text-left">{{user.last_name}}</td>
+          </tr>
+          <tr>
+            <th>Email Address: </th>
+            <td class="text-left">{{user.email}}</td>
+          </tr>
+          <tr>
+            <th>Company Name: </th>
+            <td class="text-left">{{user.userprofile.company_name}}</td>
+          </tr>
+          <tr>
+            <th>Verfified Email: </th>
+            <td class="text-left">{{user.userprofile.verified_email}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <center><a class="btn btn-danger btn" href="{% url 'edit_profile' %}">Edit Profile</a></center>
+    </div>
+  </div>
+
+</div>
+
 
 {% endblock %}

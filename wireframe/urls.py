@@ -21,9 +21,11 @@ from django.conf import settings
 from reg_extras.forms import UserProfileRegistrationForm
 from registration.views import RegistrationView
 from reg_extras import regbackend
+from django.views.generic import RedirectView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^profile/password/$', RedirectView.as_view(url="/accounts/password/change/")),
     url(r'^', include('website.urls')),
     url(r'^blog/', include('blog.urls')),
     #for account registration

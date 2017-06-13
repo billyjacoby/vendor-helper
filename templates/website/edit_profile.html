@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}{{user.username}}{% endblock %}
+{% block page-header %}
+  <h1><strong>Edit Profile Page</strong><br /><small>Edit Profile Page Subtext</small></h1>
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <form method='post'>
+        {% csrf_token %}
+        {{form|crispy}}
+        {{form2|crispy}}
+        <p>
+          Raw passwords are not stored, and as such cannot be viewed.
+          If you would like to change your password you can do so using
+          <a href="/accounts/password/change">this form</a>.
+        </p>
+
+        <br />
+          <center>
+              <input type="submit" value="Submit" class="btn btn-primary"></center>
+          </center>
+
+      </form>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</div>
+
+
+{% endblock %}
