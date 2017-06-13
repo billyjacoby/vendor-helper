@@ -2,13 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django import forms
 from registration.forms import RegistrationForm
-from django.contrib.auth.forms import UserChangeForm
 
 from .models import UserProfile
-
-#for password replacement
-from django.utils.translation import ugettext, ugettext_lazy as _
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 # this is what adds the new desired fields into the user class, be sure to fill out meta!
 class UserProfileRegistrationForm(RegistrationForm):
@@ -25,10 +20,6 @@ class UserProfileRegistrationForm(RegistrationForm):
     class Meta:
         model = User
         fields =('first_name', 'last_name', 'company_name', 'username', 'email', 'password1', 'password2')
-
-class PasswordFieldEdit(ReadOnlyPasswordHashField):
-    pass
-
 
 class EditUserProfileForm(forms.ModelForm):
     """
