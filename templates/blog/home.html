@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block page-header %}
-  <h1><strong>Blog Home Page</strong><br /><small>Subtext about the blog!</small></h1>
+  Subtext about the blog!
 {% endblock %}
 
+{% if user.is_authentiacted %}
 {% block blog %}<li class="dropdown active">{% endblock %}
+{% else %}
+{% block news %}<li class="dropdown active">{% endblock %}
+{% endif %}
 
 {% block content %}
 <div class="container-fluid">

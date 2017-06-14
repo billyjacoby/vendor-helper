@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="/static/css/custom.css" />
-  <title>Wireframe Website - {% block title %}Home{% endblock %}</title>
+  <title>Vendor Helper - {% block title %}Home{% endblock %}</title>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="page-title">
-          {% block page-header %}<h1><strong>Default Page Header</strong><br /><small>page subtext</small></h1>{% endblock %}
+          <h1><strong>Vendor Helper</strong><small> [beta]</small><br /><small>{% block page-header %}page subtext{% endblock %}</small></h1>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand">Your Company</a>
+        <a href="/" class="navbar-brand">Vendor Helper</a>
       </div>
       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav navbar-left">
@@ -50,14 +50,18 @@
           {% block about%}<li>{% endblock %}<a href="{% url 'about' %}">About</a></li>
           {% block contact%}<li>{% endblock %}<a href="{% url 'contact' %}">Contact</a></li>
           {% block blog %}<li class="dropdown">{% endblock %}
-	           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Company Blog <b class="caret"></b></a>
+            {% if user.is_authenticated %}
+	           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
 	            <ul class="dropdown-menu">
-	               <li><a href="{% url 'blog home' %}">Blog Home</a></li>
-	               <li><a href="#">Newest Post</a></li>
-	               <li><a href="#">All Posts</a></li>
+	               <li><a href="{% url 'blog home' %}">Site News</a></li>
+	               <li><a href="#">Recent Updates</a></li>
+	               <li><a href="#">User Menu</a></li>
 	               <li><a href="#">Separated link</a></li>
 	               <li><a href="#">One more separated link</a></li>
 	            </ul>
+              {% else %}
+              {% block news%}<li>{% endblock %}<a href="{% url 'blog home' %}">Site News</a></li>
+              {% endif %}
         </ul>
       </nav>
     </div>

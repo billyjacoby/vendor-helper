@@ -2,7 +2,7 @@
 
 {% block title %}{{user.username}}{% endblock %}
 {% block page-header %}
-  <h1><strong>{{user.first_name|title}} {{user.last_name|title}}'s Profile Page</strong><br /><small>Profile Page Subtext</small></h1>
+  {{user.first_name|title}} {{user.last_name|title}}'s Profile Page
 {% endblock %}
 
 {% block content %}
