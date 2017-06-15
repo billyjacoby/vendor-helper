@@ -88,6 +88,21 @@
           </tr>
         </table>
       </div>
+
+      <div class="panel panel-default">
+        <div class="panel-header">
+          <center><h3>Incentives</h3></center>
+        </div>
+        <ul class="list-group">
+        {% if user.userprofile.company.incentivemodel_set %}
+          {% for item in user.userprofile.company.incentivemodel_set.all %}
+            <li class="list-group-item"><a href="#">{{item}} | ${{item.payout}}</a></li>
+          {% endfor %}
+        {% else %}
+          <li class="list-group-item"><strong>No Incentives</strong></li>
+      </ul>
+      {% endif %}
+      </div>
     </div>
     <div class="col-sm-3"></div>
   </div>

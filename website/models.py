@@ -13,3 +13,19 @@ class CompanyModel(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class IncentiveModel(models.Model):
+    name = models.CharField(max_length=128, blank=True, null=True)
+    supplier = models.CharField(max_length=128, blank=False)
+    start_date = models.DateField(blank=False)
+    end_date = models.DateField(blank=False)
+    company = models.ManyToManyField(CompanyModel)
+    description = models.TextField(blank=False)
+    payout = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
+
+    def __unicode__(self):
+        if self.name:
+            return self.name
+        else:
+            name = '%s - %s' % (self.supplier, self.start_date)
+            return name
