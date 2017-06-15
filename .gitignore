@@ -1,5 +1,7 @@
 #added by me:
 /website/migrations/*
+*/migrations/*
+/reg_extras/migrations/*
 .DS_Store
 /wireframe/wireframe/local_settings.py
 db.sqlite3
