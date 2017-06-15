@@ -88,7 +88,7 @@
           </tr>
         </table>
       </div>
-
+      {% if user.userprofile.company %}
       <div class="panel panel-default">
         <div class="panel-header">
           <center><h3>Incentives</h3></center>
@@ -96,13 +96,14 @@
         <ul class="list-group">
         {% if user.userprofile.company.incentivemodel_set %}
           {% for item in user.userprofile.company.incentivemodel_set.all %}
-            <li class="list-group-item"><a href="#">{{item}} | ${{item.payout}}</a></li>
+            <li class="list-group-item"><a href="#"><strong>{{item}} | ${{item.payout}}</strong></a></li>
           {% endfor %}
         {% else %}
           <li class="list-group-item"><strong>No Incentives</strong></li>
       </ul>
       {% endif %}
       </div>
+      {% endif %}
     </div>
     <div class="col-sm-3"></div>
   </div>
