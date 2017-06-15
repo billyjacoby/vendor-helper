@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='incentivemodel',
             name='company',
-            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to='website.CompanyModel'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='website.CompanyModel'),
             preserve_default=False,
         ),
     ]
