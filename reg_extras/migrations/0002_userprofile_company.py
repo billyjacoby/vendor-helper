@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userprofile',
             name='company',
-            field=models.ForeignKey(blank=True, default=0, on_delete=django.db.models.deletion.CASCADE, to='website.CompanyModel'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='website.CompanyModel'),
             preserve_default=False,
         ),
     ]
