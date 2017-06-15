@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from reg_extras.forms import UserProfileRegistrationForm, EditUserProfileForm, EditUserForm
 from django.contrib.auth.models import User
 
+from website.models import IncentiveModel
 # Create your views here.
 def index(request):
     content = {}
@@ -52,3 +53,10 @@ def edit_profile(request):
         content['form']= form
         content['form2'] = form2
     return render(request, 'website/edit_profile.html', content)
+
+@login_required
+def incentive_detail(request, incentive_pk):
+    incentive = get_object_or_404(IncentiveModel, pk=incentive_pk)
+    content = {}
+    content['incentive'] = incentive
+    return render(request, 'website/incentive_detail.html', content)

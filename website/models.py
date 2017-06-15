@@ -19,7 +19,7 @@ class IncentiveModel(models.Model):
     supplier = models.CharField(max_length=128, blank=False)
     start_date = models.DateField(blank=False)
     end_date = models.DateField(blank=False)
-    company = models.ManyToManyField(CompanyModel)
+    company = models.ForeignKey('CompanyModel', blank=False)
     description = models.TextField(blank=False)
     payout = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
 
