@@ -11,6 +11,7 @@ class UserProfile(models.Model):
 
     verified_email = models.BooleanField(blank=True, default = False)
     company_name = models.CharField(max_length=100, blank=False)
+    company = models.ForeignKey('website.CompanyModel', blank=True, null=True)
 
     def __unicode__(self):
         return self.user.username

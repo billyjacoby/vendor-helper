@@ -76,7 +76,15 @@
           </tr>
           <tr>
             <th>Verfified Email: </th>
-            <td class="text-left">{{user.userprofile.verified_email}}</td>
+            {% if verified_email %}
+            <td class="text-left">Yes</td>
+            {% else %}
+            <td class="text-left danger"><strong>No</strong> - verify email <a href="#">here.</a></td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th>Company Model: </th>
+            <td class="text-left">{{user.userprofile.company}} - {{user.userprofile.company.city}}</td>
           </tr>
         </table>
       </div>

@@ -4,12 +4,14 @@ from django import forms
 from registration.forms import RegistrationForm
 
 from .models import UserProfile
+from website.models import CompanyModel
 
 # this is what adds the new desired fields into the user class, be sure to fill out meta!
 class UserProfileRegistrationForm(RegistrationForm):
     first_name = forms.CharField()
     last_name = forms.CharField()
     company_name = forms.CharField()
+    company = forms.ModelChoiceField(queryset=CompanyModel.objects.all().order_by('name'), required=False)
 #    reyes_email = forms.BooleanField()
 
 #    def check_email(self):
@@ -19,7 +21,7 @@ class UserProfileRegistrationForm(RegistrationForm):
 
     class Meta:
         model = User
-        fields =('first_name', 'last_name', 'company_name', 'username', 'email', 'password1', 'password2')
+        fields =('first_name', 'last_name', 'company', 'company_name', 'username', 'email', 'password1', 'password2')
 
 class EditUserProfileForm(forms.ModelForm):
     """
@@ -30,7 +32,7 @@ class EditUserProfileForm(forms.ModelForm):
     """
     class Meta:
         model = UserProfile
-        fields = ('company_name',)
+        fields = ('company_name', 'company')
 
     def __init__(self, *args, **kwargs):
         super(EditUserProfileForm, self).__init__(*args, **kwargs)

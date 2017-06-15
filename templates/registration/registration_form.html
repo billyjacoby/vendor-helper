@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %} Register{% endblock %}
 
 {% block content %}
+
+
   <div class="container-fluid">
   <div class="row">
   <div class="col-md-offset-4 col-lg-offset-4 col-md-4">
@@ -11,7 +14,6 @@
 <br><br>
 <form method="post" action="." enctype="multipart/form-data">
   {% csrf_token %}
-
   <div class="form-group">
     <label for="first_name">First Name</label>
     {% if form.first_name.errors %}
@@ -41,6 +43,21 @@
     {% endif %}
     <input type="text" class="form-control" name="company_name" placeholder="Company Name">
   </div>
+
+  <div class="form-group">
+    <label for='company'>Select Your Company:</label>
+    <select class="form-control" id="select1">
+      {% for value in form.company %}
+      <option>{{value}}</option>
+      {% endfor %}
+      <option value=None>Other</option>
+    </select>
+  </div>
+  <!--
+<div class="form-group">
+  {{form.company}}
+</div>
+-->
 
   <div class="form-group">
     <label for="username">Username</label>
