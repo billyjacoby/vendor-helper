@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block dashboard %}<li class="active">{% endblock %}
+
+{% block page-header %}
+  {{user.first_name|title}} {{user.last_name|title}}'s Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="panel panel-default" style="padding:0px;">
+        <div class="panel-heading">
+          <center><strong>Tasks Due Soon</strong></center>
+        </div>
+        <ul class="list-group" style="padding:5px;">
+          {% for item in tasks_due_soon %}
+          <li class="list-group-item">{{item}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-sm-5">
+      <div class="panel panel-default" style="padding:0px;">
+        <div class="panel-heading">
+          <center><strong>Subscribed Incentives</strong></center>
+        </div>
+        <ul class="list-group" style="padding:5px;">
+          {% for item in subscribed_incentives %}
+          <li class="list-group-item"><center><a href="{% url 'incentive_detail' item.pk %}">{{item}}</a></center></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="panel panel-default" style="padding:0px;">
+        <div class="panel-heading">
+          <center><strong>Route Tools <small>*currently hosted on billyjacoby.com</small></strong></center>
+        </div>
+        <div class="list-group">
+        <a href="http://www.billyjacoby.com/work/route_for_day/" class="list-group-item">
+          <h4 class="list-group-item-heading">get route</h4>
+          <p class="list-group-item-text">view stops for a specific day</p>
+        <a href="http://www.billyjacoby.com/work/stores_without_merchandisers/" class="list-group-item">
+          <h4 class="list-group-item-heading">stores without service</h4>
+          <p class="list-group-item-text">view a list of which stores do not recieve a merchandiser for a specific day</p>
+        <a href="http://www.billyjacoby.com/work/merchandisers_and_stores/" class="list-group-item">
+          <h4 class="list-group-item-heading">view stores with merchandisers</h4>
+          <p class="list-group-item-text">view which stores are visited by which mercchandiser and the merchandiser's phone number</p>
+        <a href="http://www.billyjacoby.com/work/total_cases/" class="list-group-item">
+          <h4 class="list-group-item-heading">total cases</h4>
+          <p class="list-group-item-text">view the total amount of cases going out for a specific route tomorrow</p>
+        </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="panel panel-default" style="padding:0px;">
+        <div class="panel-heading">
+          <center><strong>Incentives (Newest First)</strong></center>
+        </div>
+        <ul class="list-group" style="padding:5px;">
+          {% for item in incentive_by_date %}
+          <li class="list-group-item"><center><a href="{% url 'incentive_detail' item.pk %}">{{item}}</a></center></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

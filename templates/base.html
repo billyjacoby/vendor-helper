@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="/static/css/custom.css" />
-  <title>Vendor Helper - {% block title %}Home{% endblock %}</title>
+  <title>Sales Assistant - {% block title %}Home{% endblock %}</title>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="page-title">
-          <h1><strong>Vendor Helper</strong><small> [beta]</small><br /><small>{% block page-header %}page subtext{% endblock %}</small></h1>
+          <h1><strong>Sales Assistant</strong><small> [beta]</small><br /><small>{% block page-header %}page subtext{% endblock %}</small></h1>
         </div>
       </div>
     </div>
@@ -33,12 +33,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand">Vendor Helper</a>
+        <a href="/" class="navbar-brand">Sales Assistant</a>
       </div>
       <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
         <ul class="nav navbar-nav navbar-left">
           {% if user.is_authenticated %}
-          <li><a href="{% url 'view_profile' %}"><small>{{user.username}}</small></a></li>
+          {% block profile %}<li>{% endblock %}<a href="{% url 'view_profile' %}"><small>{{user.username}}</small></a></li>
           <li><a href="{% url 'auth_logout' %}"><small>logout</small></a></li>
           {% else %}
           <li><a href="{% url 'auth_login' %}"><small>Login</small></a></li>
@@ -48,16 +48,14 @@
         <ul class="nav navbar-nav navbar-right">
           {% block home%}<li>{% endblock %}<a href="{% url 'index' %}">Home</a></li>
           {% block about%}<li>{% endblock %}<a href="{% url 'about' %}">About</a></li>
-          {% block contact%}<li>{% endblock %}<a href="{% url 'contact' %}">Contact</a></li>
-          {% block blog %}<li class="dropdown">{% endblock %}
+          <li class="dropdown">
             {% if user.is_authenticated %}
 	           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
 	            <ul class="dropdown-menu">
-	               <li><a href="{% url 'blog home' %}">Site News</a></li>
+	               {% block blog %}<li>{% endblock %}<a href="{% url 'blog home' %}">Site News</a></li>
 	               <li><a href="#">Recent Updates</a></li>
-	               <li><a href="#">User Menu</a></li>
-	               <li><a href="#">Separated link</a></li>
-	               <li><a href="#">One more separated link</a></li>
+	               {% block dashboard %}<li>{% endblock %}<a href="{% url 'user_dashboard' %}">Dashboard</a></li>
+	               <li><a href="http://billyjacoby.com/work" target="_blank">Route Information</a></li>
 	            </ul>
               {% else %}
               {% block news%}<li>{% endblock %}<a href="{% url 'blog home' %}">Site News</a></li>

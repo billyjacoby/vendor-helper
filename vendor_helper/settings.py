@@ -170,7 +170,7 @@ AWS_QUERYSTRING_AUTH = False
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = "/profile/view/"
+LOGIN_REDIRECT_URL = "/dashboard/"
 
 # Email Settings:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

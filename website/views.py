@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from reg_extras.forms import UserProfileRegistrationForm, EditUserProfileForm, EditUserForm
 from django.contrib.auth.models import User
 
@@ -59,4 +59,29 @@ def incentive_detail(request, incentive_pk):
     incentive = get_object_or_404(IncentiveModel, pk=incentive_pk)
     content = {}
     content['incentive'] = incentive
+    subscribed= False
+    if request.user in incentive.users_subscribed.all():
+        subscribed = True
+    content['subscribed'] = subscribed
     return render(request, 'website/incentive_detail.html', content)
+
+@login_required
+def user_dashboard(request):
+    content = {}
+    content['incentive_by_date'] = IncentiveModel.objects.order_by('-date_added')[:5]
+
+    username=request.user.id
+    content['subscribed_incentives'] = IncentiveModel.objects.filter(users_subscribed__id=username)
+
+    content['tasks_due_soon'] = ["Coming soon...",]
+    return render(request, 'website/user_dashboard.html', content)
+
+@login_required
+def manage_incentive_subscription(request, incentive_pk):
+    incentive = get_object_or_404(IncentiveModel, pk=incentive_pk)
+    content = {}
+    if request.user in incentive.users_subscribed.all():
+        incentive.users_subscribed.remove(request.user)
+    else:
+        incentive.users_subscribed.add(request.user)
+    return redirect("incentive_detail", incentive_pk=incentive_pk)
