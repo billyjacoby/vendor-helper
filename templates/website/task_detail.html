@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Detail{% endblock %}
+{% block page-header %}
+  {{task.name}} task due {{task.due_date}}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+      <div class="panel panel-default" style="padding:0px">
+        <div class="panel-heading">
+          <h3 class="panel-title"><center>{{task.name}}</center></h3>
+        </div>
+        <table class="table">
+          <tr>
+            <th>Location: </th>
+            <td class="text-left">{{task.location}}</td>
+          </tr>
+          <tr>
+            <th>Due Date: </th>
+            <td class="text-left">{{task.due_date}}</td>
+          </tr>
+          <tr>
+            <th>Date Added: </th>
+            <td class="text-left">{{task.date_added}}</td>
+          </tr>
+          <tr>
+            <th>Completed: </th>
+            <td class="text-left">{{task.completed}}</td>
+          </tr>
+          <tr>
+            <th>Description: </th>
+            <td class="text-left">{{task.description}}</td>
+          </tr>
+          <tr>
+            {% if task_completed %}
+            <th class="success">Completed: </th>
+            <td class="text-left success">Yes - <a href="{% url 'manage_task_completed' task.pk %}">mark as incomplete.</a></td>
+            {% else %}
+            <th class="danger">Completed: </th>
+            <td class="text-left danger"><strong>No</strong> - <a href="{% url 'manage_task_completed' task.pk %}">mark as completed.</a></td>
+            {% endif %}
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <a class="btn btn-primary" href="{% url 'task_menu'%}">Task Menu</a>
+</div>
+{% endblock %}

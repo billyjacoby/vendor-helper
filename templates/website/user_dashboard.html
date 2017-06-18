@@ -14,16 +14,28 @@
     <div class="col-sm-offset-1 col-sm-5">
       <div class="panel panel-default" style="padding:0px;">
         <div class="panel-heading">
-          <center><strong>Tasks Due Soon</strong></center>
+          <center><strong>Due Soon</strong></center>
         </div>
         <ul class="list-group" style="padding:5px;">
-          {% if tasks_due_soon %}
-            {% for item in tasks_due_soon %}
+          {% if incentives_due_soon %}
+            {% for item in incentives_due_soon %}
             <li class="list-group-item"><center><a style="color:darkred;" href="{% url 'incentive_detail' item.pk %}"><strong>{{item}}</strong></a></center></li>
             {% endfor %}
           {% else %}
           <li class="list-group-item"><center>No Tasks Due Before {{five_days}}</center></li>
           {% endif %}
+          <div class="panel-heading">
+            <center><strong>Upcoming Tasks:</strong></center>
+          </div>
+
+          {% if users_tasks %}
+          {% for task in users_tasks %}
+          <li class="list-group-item"><center><a href="#">{{task|title}}</a></center></li>
+          {% endfor %}
+          {% else %}
+          <li class="list-group=item"><center>No Tasks to show.</center></li>
+          {% endif %}
+          <li class="list-group-item"><center><a href="{% url 'task_menu' %}" class="btn btn-primary">Task Menu</a></center></li>
         </ul>
       </div>
     </div>
@@ -48,16 +60,16 @@
           <center><strong>Route Tools <small>*currently hosted on billyjacoby.com</small></strong></center>
         </div>
         <div class="list-group">
-        <a href="http://www.billyjacoby.com/work/route_for_day/" class="list-group-item">
+        <a href="http://www.billyjacoby.com/work/route_for_day/" class="list-group-item" target="_blank">
           <h4 class="list-group-item-heading">get route</h4>
           <p class="list-group-item-text">view stops for a specific day</p>
-        <a href="http://www.billyjacoby.com/work/stores_without_merchandisers/" class="list-group-item">
+        <a href="http://www.billyjacoby.com/work/stores_without_merchandisers/" class="list-group-item" target="_blank">
           <h4 class="list-group-item-heading">stores without service</h4>
           <p class="list-group-item-text">view a list of which stores do not recieve a merchandiser for a specific day</p>
-        <a href="http://www.billyjacoby.com/work/merchandisers_and_stores/" class="list-group-item">
+        <a href="http://www.billyjacoby.com/work/merchandisers_and_stores/" class="list-group-item" target="_blank">
           <h4 class="list-group-item-heading">view stores with merchandisers</h4>
           <p class="list-group-item-text">view which stores are visited by which mercchandiser and the merchandiser's phone number</p>
-        <a href="http://www.billyjacoby.com/work/total_cases/" class="list-group-item">
+        <a href="http://www.billyjacoby.com/work/total_cases/" class="list-group-item" target="_blank">
           <h4 class="list-group-item-heading">total cases</h4>
           <p class="list-group-item-text">view the total amount of cases going out for a specific route tomorrow</p>
         </a>

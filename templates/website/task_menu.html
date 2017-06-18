@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Menu{% endblock %}
+{% block page-header %}
+  Manage your tasks
+{% endblock %}
+
+{% block task_menu %}<li class="active">{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="panel panel-default" style="padding:0px">
+        <div class="panel-heading">
+          <center><strong>Upcoming</strong></center>
+        </div>
+          <ul class="list-group">
+            {% if upcoming_tasks %}
+            {% for item in upcoming_tasks %}
+            <li class="list-group-item"><a href="{% url 'task_detail' item.pk %}" style="color:orange;"><center>{{item|title}}</center></a></li>
+            {% endfor %}
+            <li class="list-group-item"><center><a class="btn-primary btn" href="#">View More</center></a></li>
+            {% else %}
+            <li class="list-group-item">There are no upcoming tasks.</li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    <div class="col-sm-5">
+      <div class="panel panel-default" style="padding:0px">
+        <div class="panel-heading">
+          <center><strong>Completed</strong></center>
+        </div>
+        <ul class="list-group">
+          {% if completed_tasks %}
+          {% for item in completed_tasks %}
+          <li class="list-group-item"><a href="{% url 'task_detail' item.pk %}" style="color:green;"><center>{{item|title}}</center></a></li>
+          {% endfor %}
+          <li class="list-group-item"><center><a class="btn-primary btn" href="#">View More</center></a></li>
+          {% else %}
+          <li class="list-group-item">There are no completed tasks.</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="panel panel-default" style="padding:0px">
+        <div class="panel-heading">
+          <center><strong>Overdue</strong></center>
+        </div>
+        <ul class="list-group">
+          {% if overdue_tasks %}
+          {% for item in overdue_tasks %}
+          <li class="list-group-item"><a href="{% url 'task_detail' item.pk %}" style="color:red;"><center>{{item|title}}</center></a></li>
+          {% endfor %}
+          <li class="list-group-item"><center><a class="btn-primary btn" href="#">View More</center></a></li>
+          {% else %}
+          <li class="list-group-item">There are no overdue tasks.</li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <center><a class="btn-primary btn" style="display: block; width: 100%;" href="{% url 'create_task' %}"><h5><strong>Create New Task</strong></h5></a></center>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -55,7 +55,7 @@
 	               {% block blog %}<li>{% endblock %}<a href="{% url 'blog home' %}">Site News</a></li>
 	               <li><a href="#">Recent Updates</a></li>
 	               {% block dashboard %}<li>{% endblock %}<a href="{% url 'user_dashboard' %}">Dashboard</a></li>
-	               <li><a href="http://billyjacoby.com/work" target="_blank">Route Information</a></li>
+	               {% block task_menu %}<li>{% endblock %}<a href="{% url 'task_menu'%}">Task Menu</a></li>
 	            </ul>
               {% else %}
               {% block news%}<li>{% endblock %}<a href="{% url 'blog home' %}">Site News</a></li>

@@ -37,3 +37,15 @@ class IncentiveModel(models.Model):
             formatted_date = dateformat.format(self.end_date, "M-'y")
             name = '%s | %s' % (self.supplier, formatted_date)
             return name
+
+class TaskModel(models.Model):
+    name = models.CharField(max_length=128, blank=False)
+    location = models.CharField(max_length=128, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    due_date = models.DateField(blank=True, null=True)
+    date_added = models.DateTimeField(default=timezone.now, blank=False)
+    completed = models.BooleanField(default=False)
+    owner = models.ForeignKey(User, blank=False)
+
+    def __unicode__(self):
+        return self.name
