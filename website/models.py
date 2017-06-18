@@ -34,6 +34,6 @@ class IncentiveModel(models.Model):
         if self.name:
             return self.name
         else:
-            formatted_date = dateformat.format(self.start_date, "M-'y")
+            formatted_date = dateformat.format(self.end_date, "M-'y")
             name = '%s | %s' % (self.supplier, formatted_date)
             return name

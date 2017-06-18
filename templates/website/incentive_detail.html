@@ -38,18 +38,16 @@
             <th>Description: </th>
             <td class="text-left">{{incentive.description}}</td>
           </tr>
+          <tr>
+            <th>Subscribed: </th>
+            {% if subscribed %}
+            <td class="text-left">You have subscribed to this incentive. To unsubscribe click <a href="{% url 'manage_incentive_subscription' incentive.pk %}">here</a>.</td>
+            {% else %}
+            <td class="text-left">You have not subscrubed to this incentive. To subscribe click <a href="{% url 'manage_incentive_subscription' incentive.pk %}">here</a>.</td>
+            {% endif %}
+          </tr>
         </table>
       </div>
-      {{ subscribed }}
-      {% if subscribed %}
-      <p>
-        You have subscribed to this incentive. To unsubscribe click <a href="{% url 'manage_incentive_subscription' incentive.pk %}">here</a>.
-      </p>
-      {% else %}
-      <p>
-        You have not subscrubed to this incentive. To subscribe click <a href="{% url 'manage_incentive_subscription' incentive.pk %}">here</a>.
-      </p>
-      {% endif %}
     </div>
   </div>
   <form><input Type="button" class="btn btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></form>

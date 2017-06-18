@@ -14,10 +14,6 @@
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
       <ul class="list-group">
-        <li class="list-group-item" style="padding:0px;"><a class="btn-success btn" style="display: block; width: 100%;" href="{% url 'user_dashboard' %}">Dashboard</a></li>
-      </ul>
-
-      <ul class="list-group">
         <li class="list-group-item">
           <center>
             <h3>User Status is:
@@ -59,7 +55,7 @@
   <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
-      <div class="panel panel-default">
+      <div class="panel panel-default" style="padding: 0px;">
         <table class="table">
           <tr>
             <th>Username: </th>
@@ -77,47 +73,38 @@
             <th>Email Address: </th>
             <td class="text-left">{{user.email}}</td>
           </tr>
-          <tr>
-            <th>Company Name: </th>
-            <td class="text-left">{{user.userprofile.company_name}}</td>
-          </tr>
-          <tr>
-            <th>Verfified Email: </th>
-            {% if verified_email %}
-            <td class="text-left">Yes</td>
-            {% else %}
-            <td class="text-left danger"><strong>No</strong> - verify email <a href="#">here.</a></td>
-            {% endif %}
-          </tr>
+          {% if user.userprofile.company %}
           <tr>
             <th>Company Model: </th>
             <td class="text-left">{{user.userprofile.company}} - {{user.userprofile.company.city}}</td>
           </tr>
+          {% else %}
+          <tr>
+            <th>Company Name: </th>
+            <td class="text-left">{{user.userprofile.company_name}}</td>
+          </tr>
+          {% endif %}
+          <tr>
+            {% if user.userprofile.verified_email %}
+            <th>Verfified Email: </th>
+            <td class="text-left">Yes</td>
+            {% else %}
+            <th class="danger">Verfified Email: </th>
+            <td class="text-left danger"><strong>No</strong> - verify email <a href="#">here.</a></td>
+            {% endif %}
+          </tr>
         </table>
       </div>
-      {% if user.userprofile.company %}
-      <div class="panel panel-default">
-        <div class="panel-header">
-          <center><h3>Incentives</h3></center>
-        </div>
-        <ul class="list-group">
-        {% if user.userprofile.company.incentivemodel_set %}
-          {% for item in user.userprofile.company.incentivemodel_set.all %}
-            <li class="list-group-item"><a href="{% url 'incentive_detail' item.pk %}"><strong>{{item}} | ${{item.payout}}</strong></a></li>
-          {% endfor %}
-        {% else %}
-          <li class="list-group-item"><strong>No Incentives</strong></li>
-      </ul>
-      {% endif %}
-      </div>
-      {% endif %}
+
     </div>
     <div class="col-sm-3"></div>
   </div>
 
   <div class="row">
     <div class="col-sm-offset-3 col-sm-6">
-      <center><a class="btn btn-danger btn" style="display: block; width: 100%;"href="{% url 'edit_profile' %}">Edit Profile</a></center>
+      <a class="btn-success btn" style="display: block; width: 100%;" href="{% url 'user_dashboard' %}"><h4>Dashboard</h4></a>
+      <br />
+      <center><a class="btn btn-danger btn" style="display: block; width: 100%;"href="{% url 'edit_profile' %}"><h4>Edit Profile</h4></a></center>
     </div>
   </div>
 

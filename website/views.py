@@ -6,6 +6,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from reg_extras.forms import UserProfileRegistrationForm, EditUserProfileForm, EditUserForm
 from django.contrib.auth.models import User
 
+from datetime import date, timedelta, datetime
+
 from website.models import IncentiveModel
 # Create your views here.
 def index(request):
@@ -73,7 +75,10 @@ def user_dashboard(request):
     username=request.user.id
     content['subscribed_incentives'] = IncentiveModel.objects.filter(users_subscribed__id=username)
 
-    content['tasks_due_soon'] = ["Coming soon...",]
+    five_days = date.today() + timedelta(days=7)
+    content['five_days'] = five_days
+    content['tasks_due_soon'] = IncentiveModel.objects.filter(end_date__range=[date.today(), five_days])
+
     return render(request, 'website/user_dashboard.html', content)
 
 @login_required
@@ -85,3 +90,9 @@ def manage_incentive_subscription(request, incentive_pk):
     else:
         incentive.users_subscribed.add(request.user)
     return redirect("incentive_detail", incentive_pk=incentive_pk)
+
+@login_required
+def incentive_list(request):
+    content = {}
+    content['incentive_list'] = IncentiveModel.objects.all().order_by('end_date')
+    return render(request, 'website/incentive_list.html', content)

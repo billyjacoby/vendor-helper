@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     verified_email = models.BooleanField(blank=True, default = False)
-    company_name = models.CharField(max_length=100, blank=False)
+    company_name = models.CharField(max_length=100, blank=True)
     company = models.ForeignKey('website.CompanyModel', blank=True, null=True)
 
     def __unicode__(self):

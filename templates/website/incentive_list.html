@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Incentives{% endblock %}
+{% block page-header %}
+  List of All Incentives
+{% endblock %}
+
+{% block content %}
+<div class="conatiner-fluid">
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+      <div style="padding:0px;" class="panel panel-default">
+        <table class="table table-striped">
+          <tr>
+            <th>Supplier</th>
+            <th>Payout*</th>
+            <th>Due By Date</th>
+            <th>Description</th>
+          </tr>
+            {% for item in incentive_list %}
+            <tr>
+              <td><a href="{% url 'incentive_detail' item.pk %}">{{item.supplier}}</a></td>
+              {% if item.payout %}
+              <td><a href="{% url 'incentive_detail' item.pk %}">${{item.payout}}</a></td>
+              {% else %}
+              <td><a href="{% url 'incentive_detail' item.pk %}">Details</a></td>
+              {% endif %}
+              <td><a href="{% url 'incentive_detail' item.pk %}">{{item.end_date}}</a></td>
+              <td><a href="{% url 'incentive_detail' item.pk %}">{{item.description|truncatechars:20}}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+      <form><input Type="button" class="btn btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

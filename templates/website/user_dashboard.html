@@ -17,9 +17,13 @@
           <center><strong>Tasks Due Soon</strong></center>
         </div>
         <ul class="list-group" style="padding:5px;">
-          {% for item in tasks_due_soon %}
-          <li class="list-group-item">{{item}}</li>
-          {% endfor %}
+          {% if tasks_due_soon %}
+            {% for item in tasks_due_soon %}
+            <li class="list-group-item"><center><a style="color:darkred;" href="{% url 'incentive_detail' item.pk %}"><strong>{{item}}</strong></a></center></li>
+            {% endfor %}
+          {% else %}
+          <li class="list-group-item"><center>No Tasks Due Before {{five_days}}</center></li>
+          {% endif %}
         </ul>
       </div>
     </div>
@@ -31,7 +35,7 @@
         </div>
         <ul class="list-group" style="padding:5px;">
           {% for item in subscribed_incentives %}
-          <li class="list-group-item"><center><a href="{% url 'incentive_detail' item.pk %}">{{item}}</a></center></li>
+          <li class="list-group-item"><center><a href="{% url 'incentive_detail' item.pk %}" style="color: darkgreen;">{{item}}</a></center></li>
           {% endfor %}
         </ul>
       </div>
@@ -69,6 +73,7 @@
           {% for item in incentive_by_date %}
           <li class="list-group-item"><center><a href="{% url 'incentive_detail' item.pk %}">{{item}}</a></center></li>
           {% endfor %}
+          <li class="list-group-item"><a href="{% url 'incentive_list' %}"style="display: block; width: 100%;"><center>View More...</center></a></li>
         </ul>
       </div>
     </div>
