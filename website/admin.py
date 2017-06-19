@@ -8,5 +8,4 @@ from website.models import CompanyModel, IncentiveModel, TaskModel, UserIncentiv
 # Register your models here.
 admin.site.register(CompanyModel)
 admin.site.register(IncentiveModel)
-admin.site.register(UserIncentiveModel)
 admin.site.register(TaskModel)
