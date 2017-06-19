@@ -48,6 +48,42 @@
           </tr>
         </table>
       </div>
+      {% if user_incentives %}
+      <div class="panel panel-default" style="padding:0px">
+        <div class="panel-heading">
+          <h3 class="panel-title"><center>User Added Incentives</center></h3>
+        </div>
+        <table class="table">
+          {% for item in user_incentives %}
+          <tr>
+            <th>Date Completed: </th>
+            <td class="text-left">{{item.date_completed}}</td>
+          </tr>
+          <tr>
+            <th>Location: </th>
+            <td class="text-left">{{item.location}}</td>
+          </tr>
+          <tr>
+            <th>Comments: </th>
+            <td class="text-left">{{item.comments}}</td>
+          </tr>
+          <tr>
+            <th>Completed: </th>
+            <td class="text-left">{{item.completed}}</td>
+          </tr>
+          <tr>
+            <th>Payed: </th>
+            <td class="text-left">{{item.payed}}</td>
+          </tr>
+          <tr>
+            <th></th>
+            <td><a class="btn btn-danger" href="{% url 'incentive_user_delete' incentive.pk item.pk %}">Delete Incentive</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      {% endif %}
+      <a class="btn btn-warning" href="{% url 'incentive_user_create' incentive.pk %}">Add Incentive</a>
     </div>
   </div>
   <form><input Type="button" class="btn btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></form>

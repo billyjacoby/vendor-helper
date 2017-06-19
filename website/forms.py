@@ -1,5 +1,5 @@
 from django import forms
-from website.models import TaskModel
+from website.models import TaskModel, UserIncentiveModel
 from datetime import date
 
 class TaskModelForm(forms.ModelForm):
@@ -14,3 +14,18 @@ class TaskModelForm(forms.ModelForm):
         'due_date': forms.DateInput(attrs={'class':'datepicker'}),
         }
         fields = ('name', 'location', 'due_date', 'description')
+
+class UserIncentiveModelForm(forms.ModelForm):
+    date_completed = forms.DateField(widget=forms.SelectDateWidget, initial=date.today())
+    class Meta:
+        model = UserIncentiveModel
+        widgets = {
+        'date_completed': forms.DateInput(attrs={'class':'datepicker'}),
+        }
+        fields = (
+        'location',
+        'comments',
+        'completed',
+        'payed',
+        'date_completed',
+        )

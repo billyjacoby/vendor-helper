@@ -11,12 +11,12 @@
     <div class="col-sm-offset-3 col-sm-6">
       <div class="panel panel-default" style="padding:0px">
         <div class="panel-heading">
-          <h3 class="panel-title"><center>{{task.name}}</center></h3>
+          <h3 class="panel-title"><center>{{task.name|title}}</center></h3>
         </div>
         <table class="table">
           <tr>
             <th>Location: </th>
-            <td class="text-left">{{task.location}}</td>
+            <td class="text-left">{{task.location|title}}</td>
           </tr>
           <tr>
             <th>Due Date: </th>

@@ -4,12 +4,12 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from reg_extras.forms import UserProfileRegistrationForm, EditUserProfileForm, EditUserForm
-from website.forms import TaskModelForm
+from website.forms import TaskModelForm, UserIncentiveModelForm
 from django.contrib.auth.models import User
 
 from datetime import date, timedelta, datetime
 
-from website.models import IncentiveModel, TaskModel
+from website.models import IncentiveModel, TaskModel, UserIncentiveModel
 # Create your views here.
 def index(request):
     content = {}
@@ -62,21 +62,25 @@ def incentive_detail(request, incentive_pk):
     if request.user in incentive.users_subscribed.all():
         subscribed = True
     content['subscribed'] = subscribed
+
+    user_incentives = UserIncentiveModel.objects.filter(owner=request.user).filter(incentivemodel__pk=incentive_pk)
+    content['user_incentives'] = user_incentives
+
     return render(request, 'website/incentive_detail.html', content)
 
 @login_required
 def user_dashboard(request):
     content = {}
-    content['incentive_by_date'] = IncentiveModel.objects.order_by('-date_added')[:5]
+    content['incentive_by_date'] = IncentiveModel.objects.filter(end_date__gte=date.today()).order_by('-date_added')[:5]
 
     username=request.user.id
-    content['subscribed_incentives'] = IncentiveModel.objects.filter(users_subscribed__id=username).order_by('end_date')
+    content['subscribed_incentives'] = IncentiveModel.objects.filter(end_date__gte=date.today()).filter(users_subscribed__id=username).order_by('end_date')
 
     five_days = date.today() + timedelta(days=7)
     content['five_days'] = five_days
-    content['incentives_due_soon'] = IncentiveModel.objects.filter(end_date__range=[date.today(), five_days]).order_by('end_date')
+    content['incentives_due_soon'] = IncentiveModel.objects.filter(end_date__gte=date.today()).filter(end_date__range=[date.today(), five_days]).order_by('end_date')
 
-    content['users_tasks'] = TaskModel.objects.filter(owner=request.user).filter(completed=False).order_by('due_date')[:3]
+    content['users_tasks'] = TaskModel.objects.filter(owner=request.user).filter(due_date__gte=date.today()).filter(completed=False).order_by('due_date')[:3]
 
     return render(request, 'website/user_dashboard.html', content)
 
@@ -93,8 +97,39 @@ def manage_incentive_subscription(request, incentive_pk):
 @login_required
 def incentive_list(request):
     content = {}
-    content['incentive_list'] = IncentiveModel.objects.all().order_by('end_date')
+    content['incentive_list'] = IncentiveModel.objects.filter(end_date__gte=date.today()).order_by('end_date')
+    content['ended_incentive_list'] = IncentiveModel.objects.filter(end_date__lt=date.today()).order_by('end_date')
     return render(request, 'website/incentive_list.html', content)
+
+@login_required
+def incentive_user_create(request, incentive_pk):
+    content = {}
+    incentive = IncentiveModel.objects.get(pk=incentive_pk)
+    content['incentive'] = incentive
+    if request.method=='POST':
+        form = UserIncentiveModelForm(request.POST)
+        content['form'] = form
+        if form.is_valid():
+            stock = form.save(commit=False)
+            stock.incentivemodel = incentive
+            stock.owner = request.user
+            stock.save()
+            return redirect('incentive_detail', incentive_pk=incentive_pk)
+        else:
+            content['form.errors'] = form.errors
+
+    else:
+        form = UserIncentiveModelForm()
+        content['form'] = form
+    return render(request, 'website/incentive_user_create.html', content)
+
+@login_required
+def incentive_user_delete(request, incentive_pk, user_incentive_pk):
+    content = {}
+    user_incentives = UserIncentiveModel.objects.filter(owner=request.user)
+    user_incentive = get_object_or_404(user_incentives, pk=user_incentive_pk)
+    user_incentive.delete()
+    return redirect('incentive_detail', incentive_pk=incentive_pk)
 
 @login_required
 def create_task(request):
@@ -124,7 +159,7 @@ def task_menu(request):
     user_tasks = TaskModel.objects.filter(owner=request.user)
 
     week_out = date.today() + timedelta(days=7)
-    content['upcoming_tasks'] = user_tasks.filter(due_date__gt=date.today()).filter(due_date__lte=week_out).filter(completed=False).order_by('due_date')[:5]
+    content['upcoming_tasks'] = user_tasks.filter(due_date__gte=date.today()).filter(due_date__lte=week_out).filter(completed=False).order_by('due_date')[:5]
 
     content['completed_tasks'] = user_tasks.filter(completed=True).order_by('due_date')[:5]
 

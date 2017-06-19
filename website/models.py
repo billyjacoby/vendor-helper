@@ -27,7 +27,7 @@ class IncentiveModel(models.Model):
     date_added = models.DateTimeField(default=timezone.now, blank=False)
     company = models.ForeignKey('CompanyModel', blank=False)
     description = models.TextField(blank=False)
-    payout = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
+    payout = models.DecimalField(max_digits=6, decimal_places=2, blank=True, default=0)
     users_subscribed = models.ManyToManyField(User, blank=True, related_name='incentives_subscribed')
 
     def __unicode__(self):
@@ -37,6 +37,24 @@ class IncentiveModel(models.Model):
             formatted_date = dateformat.format(self.end_date, "M-'y")
             name = '%s | %s' % (self.supplier, formatted_date)
             return name
+
+class UserIncentiveModel(models.Model):
+    incentivemodel = models.ForeignKey(IncentiveModel, blank=False)
+    comments = models.TextField(blank=True)
+    date_completed = models.DateField(blank=True)
+    location = models.CharField(max_length=128, blank=True)
+    completed = models.BooleanField(blank=False, default=False)
+    payed = models.BooleanField(blank=False, default=False)
+    owner = models.ForeignKey(User, blank=False)
+
+    def __unicode__(self):
+        if self.incentivemodel.name:
+            return self.incentivemodel.name
+        else:
+            formatted_date = dateformat.format(self.incentivemodel.end_date, "M-'y")
+            name = '%s | %s' % (self.incentivemodel.supplier, formatted_date)
+            return name
+
 
 class TaskModel(models.Model):
     name = models.CharField(max_length=128, blank=False)
