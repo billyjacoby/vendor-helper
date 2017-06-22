@@ -76,7 +76,7 @@
             <td class="text-left">{{item.payed}}</td>
           </tr>
           <tr>
-            <th></th>
+            <td><a class="btn btn-warning" href="{% url 'edit_user_incentive' incentive.pk item.pk%}">Edit Incentive</a></td>
             <td><a class="btn btn-danger" href="{% url 'incentive_user_delete' incentive.pk item.pk %}">Delete Incentive</a></td>
           </tr>
           {% endfor %}
@@ -86,6 +86,6 @@
       <a class="btn btn-warning" href="{% url 'incentive_user_create' incentive.pk %}">Add Incentive</a>
     </div>
   </div>
-  <form><input Type="button" class="btn btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></form>
+  <a class="btn btn-primary" href="{% url 'user_dashboard' %}">Dashboard</a>
 </div>
 {% endblock %}

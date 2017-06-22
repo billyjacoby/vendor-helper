@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Tasks{% endblock %}
+{% block page-header %}
+  List of {{task_type}} tasks
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+      <table class="table table-striped">
+        <tr>
+          <th>Name: </th>
+          <th>Due Date: </th>
+          <th>Date Added: </th>
+          <th>Completed: </th>
+          <th>Description: </th>
+        </tr>
+        {% for item in task_list %}
+        <tr>
+          <td><a href="{% url 'task_detail' item.pk %}">{{item.name}}</a></td>
+          <td><a href="{% url 'task_detail' item.pk %}">{{item.due_date}}</a></td>
+          <td><a href="{% url 'task_detail' item.pk %}">{{item.date_added}}</a></td>
+          <td><a href="{% url 'task_detail' item.pk %}">{{item.completed}}</a></td>
+          <td><a href="{% url 'task_detail' item.pk %}">{{item.description|truncatechars:20}}</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+      <a class="btn btn-primary" href="{% url 'task_menu' %}">Task Menu</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

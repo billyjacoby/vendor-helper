@@ -54,21 +54,6 @@ def edit_profile(request):
     return render(request, 'website/edit_profile.html', content)
 
 @login_required
-def incentive_detail(request, incentive_pk):
-    incentive = get_object_or_404(IncentiveModel, pk=incentive_pk)
-    content = {}
-    content['incentive'] = incentive
-    subscribed= False
-    if request.user in incentive.users_subscribed.all():
-        subscribed = True
-    content['subscribed'] = subscribed
-
-    user_incentives = UserIncentiveModel.objects.filter(owner=request.user).filter(incentivemodel__pk=incentive_pk)
-    content['user_incentives'] = user_incentives
-
-    return render(request, 'website/incentive_detail.html', content)
-
-@login_required
 def user_dashboard(request):
     content = {}
     content['incentive_by_date'] = IncentiveModel.objects.filter(end_date__gte=date.today()).order_by('-date_added')[:5]
@@ -83,6 +68,21 @@ def user_dashboard(request):
     content['users_tasks'] = TaskModel.objects.filter(owner=request.user).filter(due_date__gte=date.today()).filter(completed=False).order_by('due_date')[:3]
 
     return render(request, 'website/user_dashboard.html', content)
+
+@login_required
+def incentive_detail(request, incentive_pk):
+    incentive = get_object_or_404(IncentiveModel, pk=incentive_pk)
+    content = {}
+    content['incentive'] = incentive
+    subscribed= False
+    if request.user in incentive.users_subscribed.all():
+        subscribed = True
+    content['subscribed'] = subscribed
+
+    user_incentives = UserIncentiveModel.objects.filter(owner=request.user).filter(incentivemodel__pk=incentive_pk)
+    content['user_incentives'] = user_incentives
+
+    return render(request, 'website/incentive_detail.html', content)
 
 @login_required
 def manage_incentive_subscription(request, incentive_pk):
@@ -124,12 +124,56 @@ def incentive_user_create(request, incentive_pk):
     return render(request, 'website/incentive_user_create.html', content)
 
 @login_required
+def edit_user_incentive(request, incentive_pk, user_incentive_pk):
+    content = {}
+    content['incentive_pk'] = incentive_pk
+    incentive = IncentiveModel.objects.get(pk=incentive_pk)
+    content['incentive'] = incentive
+    instance = UserIncentiveModel.objects.filter(owner=request.user).get(pk=user_incentive_pk)
+    if request.method == 'POST':
+        form = UserIncentiveModelForm(request.POST)
+        content['form'] = form
+        if form.is_valid():
+            stock = form.save(commit=False)
+            stock.incentivemodel = incentive
+            stock.owner = request.user
+            stock.pk = user_incentive_pk
+            stock.save()
+            return redirect('incentive_detail', incentive_pk=incentive_pk)
+        else:
+            content['form.errors'] = form.errors
+
+    else:
+        form = UserIncentiveModelForm(instance=instance)
+        content['form'] = form
+    return render(request, 'website/edit_user_incentive.html', content)
+
+@login_required
 def incentive_user_delete(request, incentive_pk, user_incentive_pk):
     content = {}
     user_incentives = UserIncentiveModel.objects.filter(owner=request.user)
     user_incentive = get_object_or_404(user_incentives, pk=user_incentive_pk)
     user_incentive.delete()
     return redirect('incentive_detail', incentive_pk=incentive_pk)
+
+@login_required
+def task_list(request, task_type="all"):
+    content = {}
+    task_list = []
+    user_tasks = TaskModel.objects.filter(owner=request.user)
+    if task_type == "upcoming":
+        task_list = user_tasks.filter(due_date__gte=date.today()).order_by('due_date')
+    elif task_type == "overdue":
+        task_list = user_tasks.filter(completed=False).filter(due_date__lt=date.today()).order_by('due_date')
+    elif task_type == "completed":
+        task_list = user_tasks.filter(completed=True).order_by('due_date')
+    else:
+        task_list = user_tasks.order_by('due_date')
+        task_type="all"
+
+    content['task_list'] = task_list
+    content['task_type'] = task_type
+    return render(request, 'website/task_list.html', content)
 
 @login_required
 def create_task(request):
@@ -144,13 +188,43 @@ def create_task(request):
             stock = form.save(commit=False)
             stock.owner = request.user
             stock.save()
-            return redirect('user_dashboard')
+            return redirect('task_menu')
         else:
             content['form.errors'] = form.errors
     else:
         form = TaskModelForm()
         content['form'] = form
     return render(request, 'website/create_task.html', content)
+
+@login_required
+def edit_task(request, task_pk):
+    content = {}
+    content['task_pk']= task_pk
+    instance = TaskModel.objects.filter(owner=request.user).get(pk=task_pk)
+    if request.method == 'POST':
+        form = TaskModelForm(request.POST)
+        content['form'] = form
+        if form.is_valid():
+            stock = form.save(commit=False)
+            stock.owner = request.user
+            stock.pk = task_pk
+            stock.save()
+            return redirect('task_detail', task_pk=task_pk)
+        else:
+            content['form.errors'] = form.errors
+
+    else:
+        form = TaskModelForm(instance=instance)
+        content['form'] = form
+    return render(request, 'website/edit_task.html', content)
+
+@login_required
+def delete_task(request, task_pk):
+    content = {}
+    user_tasks = TaskModel.objects.filter(owner=request.user)
+    user_task = get_object_or_404(user_tasks, pk=task_pk)
+    user_task.delete()
+    return redirect('task_menu')
 
 @login_required
 def task_menu(request):

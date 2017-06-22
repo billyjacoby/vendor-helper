@@ -9,34 +9,45 @@
   {% block content %}
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-3">
-        <a href="#" class="thumbnail">
-          <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjQyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDI0MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTVjNjYxNTNkMmIgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMnB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNWM2NjE1M2QyYiI+PHJlY3Qgd2lkdGg9IjI0MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI4OS44NTE1NjI1IiB5PSIxMDUuMzYyNSI+MjQyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" alt="...">
-        </a>
-        <p class="small text-justify">
-          {% lorem %}
-        </p>
-      </div>
-      <div class="col-sm-3">
-        <p class="text-left">
-          {% lorem %}
-        </p>
-        <p class="text-right">
-          {% lorem %}
-        </p>
-      </div>
-      <div class="col-sm-6">
-        <div class="panel panel-default">
+      <div class="col-sm-9">
+        <div class="panel panel-default" style="background-color:lightgrey;">
+          <p class="lead text-center"><strong>
+            Welcome to your own personal sales assistant! This website is designed to help you
+            track all aspects of your sales, from daily managing daily tasks to keeping track of
+            your commission and incentive pay.
+            </strong>
+          </p>
+
           <p  class="lead text-center">
-            {% lorem %}
+            This website is under ongoing construction and improvement, so be patient and feel free to suggest
+            any new feature you would like to see implemented. Nothing is out of the realm of possbility.
+            Be sure to keep an eye on the site news section of the site in order to stay up to date with the newly
+            implemented features, as well as general site news.
           </p>
           <p class="text-center">
-            {% lorem %}
+            Currently this website's uses are fairly limited. After creating an account you can assign yourself to an existing
+            company, then manage the incentives currently being offered by this company. There is also a task manager built into
+            this website. You can input custom task information and set a date for which this task is due. After logging in you
+            are brought to your user dashboard, where you will be shown upcoming tasks and incentives. The user dashboard is also
+            where you will be able to access the task and incentive main menus.
           </p>
           <p class="text-center">
-            {% lorem %}
+            The most anticipated planned features are the ability to predict incentive payouts at the end of each month, as well
+            a recurring email containing a list of tasks and upcoming incentives to you at whichever time interval you would prefer. The maojority
+            of the work necessary to complete these features is simply a matter of the time it takes to implement, so as mentioned
+            earlier please be patient and check back for updates!
           </p>
         </div>
+      </div>
+      <div class="col-sm-3">
+        <a href="https://github.com/billyjacoby/vendor-helper" class="thumbnail" target="_blank" style="border-width:0px;">
+          <img src="data:image/png;base64,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" alt="github">
+        </a>
+        <p class="small text-justify">
+          This is currently an open source project built with the main intention of helping me to learn
+          full-stack web development, as well as teaching me how to build and implement custom web applications.
+          Please feel free to contribute, or provide feedback. The image above links to the projects's github page.
+        </p>
       </div>
     </div>
   </div>

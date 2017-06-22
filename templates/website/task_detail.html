@@ -43,6 +43,10 @@
             <td class="text-left danger"><strong>No</strong> - <a href="{% url 'manage_task_completed' task.pk %}">mark as completed.</a></td>
             {% endif %}
           </tr>
+          <tr>
+            <td><a class="btn btn-warning" href="{% url 'edit_task' task.pk %}">Edit Task</a></td>
+            <td class="text-right"><a class="btn btn-danger" href="{% url 'delete_task' task.pk %}">Delete Task</a></td>
+          </tr>
         </table>
       </div>
     </div>

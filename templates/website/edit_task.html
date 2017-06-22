@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Task{% endblock %}
+{% block page-header %}
+  Edit Task
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-4 col-sm-4">
+      <form method='post'>
+        {% csrf_token %}
+        {{form|crispy}}
+
+        <br />
+              <a class="btn btn-danger" href="{% url 'task_detail' task_pk %}">Cancel</a>
+              <input type="submit" value="Save" class="btn btn-primary" />
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

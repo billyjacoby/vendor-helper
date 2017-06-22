@@ -20,7 +20,7 @@
             {% for item in upcoming_tasks %}
             <li class="list-group-item"><a href="{% url 'task_detail' item.pk %}" style="color:orange;"><center>{{item|title}}</center></a></li>
             {% endfor %}
-            <li class="list-group-item"><center><a class="btn-primary btn" href="#">View More</center></a></li>
+            <li class="list-group-item"><center><a class="btn-primary btn" href="/tasks/list/upcoming/">View More</center></a></li>
             {% else %}
             <li class="list-group-item">There are no upcoming tasks.</li>
             {% endif %}
@@ -37,7 +37,7 @@
           {% for item in completed_tasks %}
           <li class="list-group-item"><a href="{% url 'task_detail' item.pk %}" style="color:green;"><center>{{item|title}}</center></a></li>
           {% endfor %}
-          <li class="list-group-item"><center><a class="btn-primary btn" href="#">View More</center></a></li>
+          <li class="list-group-item"><center><a class="btn-primary btn" href="/tasks/list/completed/">View More</center></a></li>
           {% else %}
           <li class="list-group-item">There are no completed tasks.</li>
           {% endif %}
@@ -56,7 +56,7 @@
           {% for item in overdue_tasks %}
           <li class="list-group-item"><a href="{% url 'task_detail' item.pk %}" style="color:red;"><center>{{item|title}}</center></a></li>
           {% endfor %}
-          <li class="list-group-item"><center><a class="btn-primary btn" href="#">View More</center></a></li>
+          <li class="list-group-item"><center><a class="btn-primary btn" href="/tasks/list/overdue/">View More</center></a></li>
           {% else %}
           <li class="list-group-item">There are no overdue tasks.</li>
           {% endif %}
