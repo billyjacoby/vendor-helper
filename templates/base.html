@@ -46,20 +46,20 @@
           {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          {% block home%}<li>{% endblock %}<a href="{% url 'index' %}">Home</a></li>
-          {% block about%}<li>{% endblock %}<a href="{% url 'about' %}">About</a></li>
-          <li class="dropdown">
-            {% if user.is_authenticated %}
-	           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
-	            <ul class="dropdown-menu">
-	               {% block blog %}<li>{% endblock %}<a href="{% url 'site_news_page' %}">Site News</a></li>
-	               <li><a href="{% url 'view_category' 'updates' %}">Recent Updates</a></li>
-	               {% block dashboard %}<li>{% endblock %}<a href="{% url 'user_dashboard' %}">Dashboard</a></li>
-	               {% block task_menu %}<li>{% endblock %}<a href="{% url 'task_menu'%}">Task Menu</a></li>
-	            </ul>
-              {% else %}
-              {% block news%}<li>{% endblock %}<a href="{% url 'blog home' %}">Site News</a></li>
-              {% endif %}
+            {% block home%}<li>{% endblock %}<a href="{% url 'index' %}">Home</a></li>
+          {% if user.is_authenticated %}
+            {% block dashboard %}<li>{% endblock %}<a href="{% url 'user_dashboard' %}">Dashboard</a></li>
+            <li class="dropdown">
+	             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
+	              <ul class="dropdown-menu">
+	                 {% block blog %}<li>{% endblock %}<a href="{% url 'site_news_page' %}">Site News</a></li>
+	                  <li><a href="{% url 'view_category' 'updates' %}">Recent Updates</a></li>
+	                   {% block task_menu %}<li>{% endblock %}<a href="{% url 'task_menu'%}">Task Menu</a></li>
+	              </ul>
+          {% else %}
+            {% block about %}<li>{% endblock %}<a href="{% url 'about' %}">About</a></li>
+            {% block blog2 %}<li>{% endblock %}<a href="{% url 'blog home' %}">Site News</a></li>
+          {% endif %}
         </ul>
       </nav>
     </div>
