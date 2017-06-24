@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from reg_extras.forms import UserProfileRegistrationForm, EditUserProfileForm, EditUserForm
 from website.forms import TaskModelForm, UserIncentiveModelForm
@@ -19,7 +18,6 @@ def about(request):
     content = {}
     return render(request, 'website/about.html', content)
 
-@login_required
 def view_profile(request):
     profile = request.user.get_username()
     content = {
@@ -27,7 +25,6 @@ def view_profile(request):
     }
     return render(request, 'website/view_profile.html', content)
 
-@login_required
 def edit_profile(request):
     content = {}
     profile = request.user.get_username()
@@ -53,7 +50,6 @@ def edit_profile(request):
         content['form2'] = form2
     return render(request, 'website/edit_profile.html', content)
 
-@login_required
 def user_dashboard(request):
     content = {}
     content['incentive_by_date'] = IncentiveModel.objects.filter(end_date__gte=date.today()).order_by('-date_added')[:5]
@@ -69,7 +65,6 @@ def user_dashboard(request):
 
     return render(request, 'website/user_dashboard.html', content)
 
-@login_required
 def incentive_detail(request, incentive_pk):
     incentive = get_object_or_404(IncentiveModel, pk=incentive_pk)
     content = {}
@@ -84,7 +79,6 @@ def incentive_detail(request, incentive_pk):
 
     return render(request, 'website/incentive_detail.html', content)
 
-@login_required
 def manage_incentive_subscription(request, incentive_pk):
     incentive = get_object_or_404(IncentiveModel, pk=incentive_pk)
     content = {}
@@ -94,14 +88,12 @@ def manage_incentive_subscription(request, incentive_pk):
         incentive.users_subscribed.add(request.user)
     return redirect("incentive_detail", incentive_pk=incentive_pk)
 
-@login_required
 def incentive_list(request):
     content = {}
     content['incentive_list'] = IncentiveModel.objects.filter(end_date__gte=date.today()).order_by('end_date')
     content['ended_incentive_list'] = IncentiveModel.objects.filter(end_date__lt=date.today()).order_by('end_date')
     return render(request, 'website/incentive_list.html', content)
 
-@login_required
 def incentive_user_create(request, incentive_pk):
     content = {}
     incentive = IncentiveModel.objects.get(pk=incentive_pk)
@@ -123,7 +115,6 @@ def incentive_user_create(request, incentive_pk):
         content['form'] = form
     return render(request, 'website/incentive_user_create.html', content)
 
-@login_required
 def edit_user_incentive(request, incentive_pk, user_incentive_pk):
     content = {}
     content['incentive_pk'] = incentive_pk
@@ -148,7 +139,6 @@ def edit_user_incentive(request, incentive_pk, user_incentive_pk):
         content['form'] = form
     return render(request, 'website/edit_user_incentive.html', content)
 
-@login_required
 def incentive_user_delete(request, incentive_pk, user_incentive_pk):
     content = {}
     user_incentives = UserIncentiveModel.objects.filter(owner=request.user)
@@ -156,7 +146,6 @@ def incentive_user_delete(request, incentive_pk, user_incentive_pk):
     user_incentive.delete()
     return redirect('incentive_detail', incentive_pk=incentive_pk)
 
-@login_required
 def task_list(request, task_type="all"):
     content = {}
     task_list = []
@@ -175,7 +164,6 @@ def task_list(request, task_type="all"):
     content['task_type'] = task_type
     return render(request, 'website/task_list.html', content)
 
-@login_required
 def create_task(request):
     content = {}
     #instance = TaskModel(owner=request.user)
@@ -196,7 +184,6 @@ def create_task(request):
         content['form'] = form
     return render(request, 'website/create_task.html', content)
 
-@login_required
 def edit_task(request, task_pk):
     content = {}
     content['task_pk']= task_pk
@@ -218,7 +205,6 @@ def edit_task(request, task_pk):
         content['form'] = form
     return render(request, 'website/edit_task.html', content)
 
-@login_required
 def delete_task(request, task_pk):
     content = {}
     user_tasks = TaskModel.objects.filter(owner=request.user)
@@ -226,7 +212,6 @@ def delete_task(request, task_pk):
     user_task.delete()
     return redirect('task_menu')
 
-@login_required
 def task_menu(request):
     content = {}
 
@@ -241,7 +226,6 @@ def task_menu(request):
 
     return render(request, 'website/task_menu.html', content)
 
-@login_required
 def task_detail(request, task_pk):
     content = {}
     user_tasks = TaskModel.objects.filter(owner=request.user)
@@ -253,7 +237,6 @@ def task_detail(request, task_pk):
     content['task_completed'] = task_completed
     return render(request, 'website/task_detail.html', content)
 
-@login_required
 def manage_task_completed(request, task_pk):
     content = {}
     user_tasks = TaskModel.objects.filter(owner=request.user)

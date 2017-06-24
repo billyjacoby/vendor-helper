@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'vendor_helper.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'vendor_helper.urls'
@@ -171,6 +172,7 @@ REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = "/dashboard/"
+LOGIN_URL = "/accounts/login/"
 
 # Email Settings:
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -184,6 +186,15 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 AUTH_PROFILE_MODULE = 'website.UserProfile'
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
+
+# My middelware settings
+LOGIN_EXEMPT_URLS = (
+r'^$',
+r'^accounts/logout/$',
+r'^accounts/register/$',
+r'^about/$',
+r'^blog/$',
+)
 
 try:
     from .local_settings import *
