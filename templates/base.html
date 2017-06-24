@@ -52,8 +52,8 @@
             {% if user.is_authenticated %}
 	           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
 	            <ul class="dropdown-menu">
-	               {% block blog %}<li>{% endblock %}<a href="{% url 'blog home' %}">Site News</a></li>
-	               <li><a href="#">Recent Updates</a></li>
+	               {% block blog %}<li>{% endblock %}<a href="{% url 'site_news_page' %}">Site News</a></li>
+	               <li><a href="{% url 'view_category' 'updates' %}">Recent Updates</a></li>
 	               {% block dashboard %}<li>{% endblock %}<a href="{% url 'user_dashboard' %}">Dashboard</a></li>
 	               {% block task_menu %}<li>{% endblock %}<a href="{% url 'task_menu'%}">Task Menu</a></li>
 	            </ul>

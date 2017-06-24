@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block page-header %}
-  <h1><strong>View Blog Post</strong><br /><small>Subtext about the blog!</small></h1>
+  View {{subject|title}} Post
 {% endblock %}
 
 {% block blog %}<li class="dropdown active">{% endblock %}
@@ -9,14 +9,20 @@
 {% block content %}
 <div class="container-fluid">
   <div class="row">
-    {% if post.image %}
+    {% if object.image %}
     <div class="col-sm-3">
       <img src="{{ post.image.url }}" />
     </div>
-    {% endif %}
-    <div class="col-sm-offset-1 col-sm-8">
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.body }}</p>
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+      <h2>{{ object.title }} - <small>{{object.posted|date}}</small></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-8">
+      <p>{{ object.body|safe }}</p>
     </div>
   </div>
 </div>

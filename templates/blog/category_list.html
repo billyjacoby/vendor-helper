@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block page-header %}
+  View Article Categories
+{% endblock %}
+
+{% if user.is_authentiacted %}
+{% block blog %}<li class="dropdown active">{% endblock %}
+{% else %}
+{% block news %}<li class="dropdown active">{% endblock %}
+{% endif %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+  <center><h2>Recent {{subject|title}} Posts</h2></center>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-6">
+  <ul class="list-group">
+    {% for category in object_list %}
+    <li class="list-group-item">
+      <center><a href="{% url 'view_category' category.slug %}">{{ category.title|title}}</a></center>
+    </li>
+    {% empty %}
+  </ul>
+    <p>
+      There are no posts.
+    </p>
+    {% endfor %}
+
+  </div>
+  </div>
+
+</div>
+
+{% endblock %}
