@@ -60,10 +60,25 @@ def user_dashboard(request):
     five_days = date.today() + timedelta(days=7)
     content['five_days'] = five_days
     content['incentives_due_soon'] = IncentiveModel.objects.filter(end_date__gte=date.today()).filter(end_date__range=[date.today(), five_days]).order_by('end_date')
+    incentive_long = False
+    if content['incentives_due_soon'].count() > 4:
+        content['incentives_due_soon'] = content['incentives_due_soon'][:4]
+        incentive_long = True
 
-    content['users_tasks'] = TaskModel.objects.filter(owner=request.user).filter(due_date__gte=date.today()).filter(completed=False).order_by('due_date')[:3]
+    content['incentive_long'] = incentive_long
+
+    content['users_tasks'] = TaskModel.objects.filter(owner=request.user).filter(due_date__gte=date.today()).filter(completed=False).filter(due_date__range=[date.today(), five_days]).order_by('due_date')
+    tasks_long = False
+    if content['users_tasks'].count() > 2:
+        content['users_tasks'] = content['users_tasks'][:2]
+        tasks_long = True
+    content['tasks_long'] = tasks_long
 
     return render(request, 'website/user_dashboard.html', content)
+
+def incentive_menu(request):
+    content = {}
+    return render(request, 'website/incentive_menu.html', content)
 
 def incentive_detail(request, incentive_pk):
     incentive = get_object_or_404(IncentiveModel, pk=incentive_pk)

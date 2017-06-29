@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^profile/edit/$', views.edit_profile, name="edit_profile"),
     url(r'^dashboard/$', views.user_dashboard, name="user_dashboard"),
     #
+    url(r'^incentive/menu/$', views.incentive_menu, name="incentive_menu"),
     url(r'^incentive/(?P<incentive_pk>[0-9]+)/$', views.incentive_detail, name="incentive_detail"),
     url(r'^incentive/(?P<incentive_pk>[0-9]+)/user_create/$', views.incentive_user_create, name="incentive_user_create"),
     url(r'^incentive/(?P<incentive_pk>[0-9]+)/delete/(?P<user_incentive_pk>[0-9]+)/$', views.incentive_user_delete, name="incentive_user_delete"),

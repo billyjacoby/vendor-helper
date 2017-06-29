@@ -14,13 +14,16 @@
     <div class="col-sm-offset-1 col-sm-5">
       <div class="panel panel-default" style="padding:0px;">
         <div class="panel-heading">
-          <center><strong>Due Soon</strong></center>
+          <center><strong>Items Due by {{five_days}}</strong></center>
         </div>
         <ul class="list-group" style="padding:5px;">
           {% if incentives_due_soon %}
             {% for item in incentives_due_soon %}
             <li class="list-group-item"><center><a style="color:darkred;" href="{% url 'incentive_detail' item.pk %}"><strong>{{item|title}}</strong></a></center></li>
             {% endfor %}
+            {% if incentive_long %}
+            <li class="list-group-item"><center><a style="color:darkred;" href="{% url 'incentive_list' %}"><strong>View More...</strong></a></center></li>
+            {% endif %}
           {% else %}
           <li class="list-group-item"><center>No Tasks Due Before {{five_days}}</center></li>
           {% endif %}
@@ -30,8 +33,11 @@
 
           {% if users_tasks %}
           {% for task in users_tasks %}
-          <li class="list-group-item"><center><a href="#">{{task|title}}</a></center></li>
+          <li class="list-group-item"><center><a href="{% url 'task_detail' task.pk %}">{{task|title}}</a></center></li>
           {% endfor %}
+          {% if tasks_long %}
+          <li class="list-group-item"><center><a href="/tasks/list/upcoming/">View More...</a></center></li>
+          {% endif %}
           {% else %}
           <li class="list-group-item"><center>No Tasks to show.</center></li>
           {% endif %}

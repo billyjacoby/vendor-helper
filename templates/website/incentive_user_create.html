@@ -65,6 +65,12 @@
             </tr>
             <tr>
               <div class="form-group">
+                <th><label for="{{form.payout.id_for_label}}">Payout: </label></th>
+                <td><input class="form-control" name ="{{form.payout.html_name}}" type="number" id="{{form.payout.id_for_label}}" value="{{incentive.payout}}"/></td>
+              </div>
+            </tr>
+            <tr>
+              <div class="form-group">
                 <th><label for="{{form.comments.id_for_label}}">Comments: </label></th>
                 <td><textarea class="form-control" rows="5" name ="{{form.comments.html_name}}" type="text" id="{{form.comments.id_for_label}}" /></textarea></td>
               </div>

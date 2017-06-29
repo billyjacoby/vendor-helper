@@ -11,6 +11,7 @@ class TaskModelForm(forms.ModelForm):
     class Meta:
         model = TaskModel
         widgets = {
+        'payout': forms.NumberInput(),
         'due_date': forms.DateInput(attrs={'class':'datepicker'}),
         }
         fields = ('name', 'location', 'due_date', 'description')
@@ -23,6 +24,7 @@ class UserIncentiveModelForm(forms.ModelForm):
         'date_completed': forms.DateInput(attrs={'class':'datepicker'}),
         }
         fields = (
+        'payout',
         'location',
         'comments',
         'completed',

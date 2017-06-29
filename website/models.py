@@ -29,6 +29,8 @@ class IncentiveModel(models.Model):
     description = models.TextField(blank=False)
     payout = models.DecimalField(max_digits=6, decimal_places=2, blank=True, default=0)
     users_subscribed = models.ManyToManyField(User, blank=True, related_name='incentives_subscribed')
+    contact_name = models.CharField(max_length=128, blank=True, null=True)
+    contact_email = models.EmailField(blank=True, null=True)
 
     def __unicode__(self):
         if self.name:
@@ -46,6 +48,12 @@ class UserIncentiveModel(models.Model):
     completed = models.BooleanField(blank=False, default=False)
     payed = models.BooleanField(blank=False, default=False)
     owner = models.ForeignKey(User, blank=False)
+    payout = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.payout:
+            self.payout = self.incentivemodel.payout
+        super(UserIncentiveModel, self).save(*args, **kwargs)
 
     def __unicode__(self):
         if self.incentivemodel.name:
