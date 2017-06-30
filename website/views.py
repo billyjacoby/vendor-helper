@@ -77,7 +77,29 @@ def user_dashboard(request):
     return render(request, 'website/user_dashboard.html', content)
 
 def incentive_menu(request):
+    month_choices = {
+    "1" : "January",
+    "2" : "February",
+    "3" : "March",
+    "4" : "April",
+    "5" : "May",
+    "6" : "June",
+    "7" : "July",
+    "8" : "August",
+    "9" : "September",
+    "10" : "October",
+    "11" : "November",
+    "12" : "December"
+    }
+
+    month = date.today().month
+    if request.method == 'POST':
+        month = request.POST['chosen-month']
+
     content = {}
+    content['month_choices'] = month_choices
+    content['month'] = month
+    print "month: " + str(month)
     content['today'] = date.today()
 
     user = request.user.id
@@ -93,7 +115,6 @@ def incentive_menu(request):
     completed_payed = user_incentives.filter(payed=True)
     content['completed_payed'] = completed_payed
 
-    month = date.today().month
 
     subscribed_potential_payout = 0
     for item in subscribed_incentives:

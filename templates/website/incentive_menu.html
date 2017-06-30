@@ -17,7 +17,7 @@
           <div class="progress">
             <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{percent_complete}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percent_complete}}%">
               {% if payout_for_month %}
-              {{percent_complete}}% - ${{payout_for_month}}
+              <strong>{{percent_complete}}% - ${{payout_for_month}}</strong
               {% endif %}
             </div>
           </div>
@@ -25,9 +25,74 @@
       </div>
       <div class="row">
         <div class="col-sm-4">
-          <p>
-            Month: {{today|date:'F'}}
-          </p>
+            <form method="post">
+              {% csrf_token %}
+              <div class="form-inline">
+                <select class="form-control" id="sel1" value="{{today|date:'m'}}" name="chosen-month">
+                  {% if month == 1 %}
+                  <option selected="selected" value="1">January</option>
+                  {% else %}
+                  <option value="1">January</option>
+                  {% endif %}
+                  {% if month == 2 %}
+                  <option selected="selected" value="2">February</option>
+                  {% else %}
+                  <option value="2">February</option>
+                  {% endif %}
+                  {% if month == 3 %}
+                  <option selected="selected" value="3">March</option>
+                  {% else %}
+                  <option value="3">March</option>
+                  {% endif %}
+                  {% if month == 4 %}
+                  <option selected="selected" value="4">April</option>
+                  {% else %}
+                  <option value="4">April</option>
+                  {% endif %}
+                  {% if month == 5 %}
+                  <option selected="selected" value="5">May</option>
+                  {% else %}
+                  <option value="5">May</option>
+                  {% endif %}
+                  {% if month == 6 %}
+                  <option selected="selected" value="6">June</option>
+                  {% else %}
+                  <option value="6">June</option>
+                  {% endif %}
+                  {% if month == 7 %}
+                  <option selected="selected" value="7">July</option>
+                  {% else %}
+                  <option value="7">July</option>
+                  {% endif %}
+                  {% if month == 8 %}
+                  <option selected="selected" value="8">August</option>
+                  {% else %}
+                  <option value="8">August</option>
+                  {% endif %}
+                  {% if month == 9 %}
+                  <option selected="selected" value="9">September</option>
+                  {% else %}
+                  <option value="9">September</option>
+                  {% endif %}
+                  {% if month == 10 %}
+                  <option selected="selected" value="10">October</option>
+                  {% else %}
+                  <option value="10">October</option>
+                  {% endif %}
+                  {% if month == 11 %}
+                  <option selected="selected" value="11">November</option>
+                  {% else %}
+                  <option value="11">November</option>
+                  {% endif %}
+                  {% if month == 12 %}
+                  <option selected="selected" value="12">December</option>
+                  {% else %}
+                  <option value="12">December</option>
+                  {% endif %}
+                </select>
+                <input type="submit" class="btn btn-primary" value="Go"/>
+              </div>
+            </form>
         </div>
         <div class="col-sm-4">
           <p>
@@ -39,6 +104,7 @@
           Total for month: ${{payout_for_month}}
         </p>
         </div>
+      </div>
       <br />
       <div class="row">
           <div class="col-sm-4">
