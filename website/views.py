@@ -97,7 +97,8 @@ def incentive_menu(request):
 
     subscribed_potential_payout = 0
     for item in subscribed_incentives:
-        subscribed_potential_payout += item.payout
+        if item.payout:
+            subscribed_potential_payout += item.payout
     content['subscribed_potential_payout'] = subscribed_potential_payout
 
     user_incentives_for_month = UserIncentiveModel.objects.filter(incentivemodel__end_date__month=month)
@@ -109,7 +110,8 @@ def incentive_menu(request):
     completed_user_incentives_for_month = user_incentives_for_month.filter(completed=True)
     payout_for_month = 0
     for item in completed_user_incentives_for_month:
-        payout_for_month += item.payout
+        if item.payout:
+            payout_for_month += item.payout
     content['payout_for_month'] = payout_for_month
 
     percent_complete = ((round(payout_for_month / subscribed_potential_payout, 3)) * 100)
