@@ -8,5 +8,84 @@
 {% block incentive_menu %}<li class="active">{% endblock %}
 
 {% block content %}
-
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-10">
+      <div class="row">
+        <div class="col-sm-12">
+          <strong>Percentage of subscribed incentives complete:</strong>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{percent_complete}}" aria-valuemin="0" aria-valuemax="100" style="width: {{percent_complete}}%">
+              {% if payout_for_month %}
+              {{percent_complete}}% - ${{payout_for_month}}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <p>
+            Month: {{today|date:'F'}}
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <p>
+            Total Potential (subscribed): ${{subscribed_potential_payout}}
+          </p>
+        </div>
+        <div class="col-sm-4">
+        <p>
+          Total Potential (subscribed): ${{subscribed_potential_payout}}
+        </p>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+          <div class="col-sm-4">
+            <div class="panel panel-default" style="padding:0px">
+              <div class="panel-heading">
+                <center><strong>Subscribed & Due Soon</strong></center>
+              </div>
+                <ul class="list-group">
+                  {% for incentive in subscribed_and_due %}
+                  <li class="list-group-item"><a style="color:darkred;" href="{% url 'incentive_detail' incentive.pk%}">{{incentive}}</a></li>
+                  {% empty %}
+                  <li class="list-group-item">There are no upcoming incentives.</li>
+                  {% endfor %}
+                </ul>
+              </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel panel-default" style="padding:0px">
+              <div class="panel-heading">
+                <center><strong>Completed - Not Payed</strong></center>
+              </div>
+              <ul class="list-group">
+                {% for incentive in completed_not_payed %}
+                <li class="list-group-item"><a href="{% url 'incentive_detail' incentive.incentivemodel.pk %}">{{incentive}}</a></li>
+                {% empty %}
+                <li class="list-group-item">There are no upcoming incentives.</li>
+                {% endfor %}
+              </ul>
+              </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="panel panel-default" style="padding:0px">
+              <div class="panel-heading">
+                <center><strong>Completed Payed</strong></center>
+              </div>
+              <ul class="list-group">
+                {% for incentive in completed_payed %}
+                <li class="list-group-item"><a style="color:darkgreen;"href="{% url 'incentive_detail' incentive.incentivemodel.pk %}">{{incentive}}</a></li>
+                {% empty %}
+                <li class="list-group-item">There are no upcoming incentives.</li>
+                {% endfor %}
+              </ul>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -78,6 +78,43 @@ def user_dashboard(request):
 
 def incentive_menu(request):
     content = {}
+    content['today'] = date.today()
+
+    user = request.user.id
+    one_week = date.today() + timedelta(days=7)
+    subscribed_incentives = IncentiveModel.objects.filter(users_subscribed__id=user)
+    subscribed_and_due = subscribed_incentives.filter(end_date__range=[date.today(), one_week]).order_by('end_date')
+    content['subscribed_and_due'] = subscribed_and_due
+
+    user_incentives = UserIncentiveModel.objects.filter(owner=user)
+    completed_not_payed = user_incentives.filter(payed=False)
+    content['completed_not_payed'] = completed_not_payed
+
+    completed_payed = user_incentives.filter(payed=True)
+    content['completed_payed'] = completed_payed
+
+    month = date.today().month
+
+    subscribed_potential_payout = 0
+    for item in subscribed_incentives:
+        subscribed_potential_payout += item.payout
+    content['subscribed_potential_payout'] = subscribed_potential_payout
+
+    user_incentives_for_month = UserIncentiveModel.objects.filter(incentivemodel__end_date__month=month)
+
+    """for item in user_incentives_for_month:
+        print item
+        print item.incentivemodel.end_date"""
+
+    completed_user_incentives_for_month = user_incentives_for_month.filter(completed=True)
+    payout_for_month = 0
+    for item in completed_user_incentives_for_month:
+        payout_for_month += item.payout
+    content['payout_for_month'] = payout_for_month
+
+    percent_complete = ((round(payout_for_month / subscribed_potential_payout, 3)) * 100)
+    content['percent_complete'] = percent_complete
+
     return render(request, 'website/incentive_menu.html', content)
 
 def incentive_detail(request, incentive_pk):
