@@ -99,7 +99,6 @@ def incentive_menu(request):
     content = {}
     content['month_choices'] = month_choices
     content['month'] = month
-    print "month: " + str(month)
     content['today'] = date.today()
 
     user = request.user.id
@@ -115,9 +114,9 @@ def incentive_menu(request):
     completed_payed = user_incentives.filter(payed=True)
     content['completed_payed'] = completed_payed
 
-
+    subscribed_incentives_for_month = subscribed_incentives.filter(end_date__month=month)
     subscribed_potential_payout = 0
-    for item in subscribed_incentives:
+    for item in subscribed_incentives_for_month:
         if item.payout:
             subscribed_potential_payout += item.payout
     content['subscribed_potential_payout'] = subscribed_potential_payout
