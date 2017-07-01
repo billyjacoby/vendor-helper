@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, get_object_or_404, redirect
 from reg_extras.forms import UserProfileRegistrationForm, EditUserProfileForm, EditUserForm
-from website.forms import TaskModelForm, UserIncentiveModelForm
+from website.forms import TaskModelForm, UserIncentiveModelForm, MonthForm
 from django.contrib.auth.models import User
 
 from datetime import date, timedelta, datetime
@@ -77,27 +77,14 @@ def user_dashboard(request):
     return render(request, 'website/user_dashboard.html', content)
 
 def incentive_menu(request):
-    month_choices = {
-    "1" : "January",
-    "2" : "February",
-    "3" : "March",
-    "4" : "April",
-    "5" : "May",
-    "6" : "June",
-    "7" : "July",
-    "8" : "August",
-    "9" : "September",
-    "10" : "October",
-    "11" : "November",
-    "12" : "December"
-    }
-
+    content = {}
+    month = date.today().month
     month = date.today().month
     if request.method == 'POST':
-        month = request.POST['chosen-month']
+        month = int(request.POST['month'])
 
-    content = {}
-    content['month_choices'] = month_choices
+    month_form = MonthForm(initial={'month': month})
+    content['month_form'] = month_form
     content['month'] = month
     content['today'] = date.today()
 
@@ -134,8 +121,11 @@ def incentive_menu(request):
             payout_for_month += item.payout
     content['payout_for_month'] = payout_for_month
 
-    percent_complete = ((round(payout_for_month / subscribed_potential_payout, 3)) * 100)
-    content['percent_complete'] = percent_complete
+    if subscribed_potential_payout != 0:
+        percent_complete = ((round(payout_for_month / subscribed_potential_payout, 3)) * 100)
+        content['percent_complete'] = percent_complete
+    else:
+        content['percent_complete'] = 0
 
     return render(request, 'website/incentive_menu.html', content)
 
