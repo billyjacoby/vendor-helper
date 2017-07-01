@@ -123,7 +123,10 @@ def incentive_menu(request):
 
     if subscribed_potential_payout != 0:
         percent_complete = ((round(payout_for_month / subscribed_potential_payout, 3)) * 100)
-        content['percent_complete'] = percent_complete
+        if percent_complete > 100:
+            content['percent_complete'] = 100
+        else:
+            content['percent_complete'] = percent_complete
     else:
         content['percent_complete'] = 0
 
