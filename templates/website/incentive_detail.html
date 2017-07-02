@@ -97,7 +97,7 @@
           </tr>
           <tr>
             <td><a class="btn btn-warning" href="{% url 'edit_user_incentive' incentive.pk item.pk%}">Edit Incentive</a></td>
-            <td><a class="btn btn-danger" href="{% url 'incentive_user_delete' incentive.pk item.pk %}">Delete Incentive</a></td>
+            <td><a class="btn btn-danger delete" href="{% url 'incentive_user_delete' incentive.pk item.pk %}" data-confirm="Are you sure to delete this item?">Delete Incentive</a></td>
           </tr>
           {% endfor %}
         </table>
