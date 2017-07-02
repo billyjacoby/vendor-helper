@@ -92,14 +92,32 @@ def incentive_menu(request):
     one_week = date.today() + timedelta(days=7)
     subscribed_incentives = IncentiveModel.objects.filter(users_subscribed__id=user)
     subscribed_and_due = subscribed_incentives.filter(end_date__range=[date.today(), one_week]).order_by('end_date')
+    if subscribed_and_due.count() > 5:
+        subscribed_and_due = subscribed_and_due[:5]
+        subscribed_and_due_long = True
+    else:
+        subscribed_and_due_long = False
     content['subscribed_and_due'] = subscribed_and_due
+    content['subscribed_and_due_long'] = subscribed_and_due_long
 
     user_incentives = UserIncentiveModel.objects.filter(owner=user)
     completed_not_payed = user_incentives.filter(payed=False)
+    if completed_not_payed.count() > 5:
+        completed_not_payed = completed_not_payed[:5]
+        completed_not_payed_long = True
+    else:
+        completed_not_payed_long = False
     content['completed_not_payed'] = completed_not_payed
+    content['completed_not_payed_long'] = completed_not_payed_long
 
     completed_payed = user_incentives.filter(payed=True)
+    if completed_payed.count() > 5 :
+        completed_payed = completed_payed[:5]
+        completed_payed_long = True
+    else:
+        completed_payed_long = False
     content['completed_payed'] = completed_payed
+    content['completed_payed_long'] = completed_payed_long
 
     subscribed_incentives_for_month = subscribed_incentives.filter(end_date__month=month)
     subscribed_potential_payout = 0
@@ -109,10 +127,6 @@ def incentive_menu(request):
     content['subscribed_potential_payout'] = subscribed_potential_payout
 
     user_incentives_for_month = UserIncentiveModel.objects.filter(incentivemodel__end_date__month=month)
-
-    """for item in user_incentives_for_month:
-        print item
-        print item.incentivemodel.end_date"""
 
     completed_user_incentives_for_month = user_incentives_for_month.filter(completed=True)
     payout_for_month = 0
@@ -161,14 +175,18 @@ def incentive_list(request, incentive_type="all"):
     week_out = date.today() + timedelta(days = 7)
     incentive_list = []
     ended_incentive_list = []
+    page_header = ""
 
     if incentive_type == "subscribed":
         incentive_list = IncentiveModel.objects.filter(end_date__gte=date.today()).filter(users_subscribed=user).order_by('end_date')
         ended_incentive_list = IncentiveModel.objects.filter(end_date__lt=date.today()).filter(users_subscribed=user).order_by('end_date')
+    elif incentive_type == "subscribed-due-soon":
+        incentive_list = IncentiveModel.objects.filter(end_date__range=[date.today(), week_out]).filter(users_subscribed=user).order_by('end_date')
+        page_header = "List of subscribed incentives due before " + week_out.strftime("%B %d, %Y")
     elif incentive_type == "due-soon":
         incentive_list = IncentiveModel.objects.filter(end_date__range=[date.today(), week_out]).order_by('end_date')
         ended_incentive_list = []
-        content['page_header'] = "List of incentives due before " + week_out.strftime("%B %d, %Y")
+        page_header = "List of incentives due before " + week_out.strftime("%B %d, %Y")
     elif incentive_type == "past":
         incentive_list = IncentiveModel.objects.filter(end_date__lt=date.today()).order_by('end_date')
     elif incentive_type == "completed":
@@ -184,6 +202,7 @@ def incentive_list(request, incentive_type="all"):
     'incentive_list': incentive_list,
     'incentive_type': incentive_type,
     'ended_incentive_list': ended_incentive_list,
+    'page_header': page_header,
     }
     return render(request, 'website/incentive_list.html', content)
 
@@ -316,6 +335,8 @@ def task_menu(request):
     content['completed_tasks'] = user_tasks.filter(completed=True).order_by('due_date')[:5]
 
     content['overdue_tasks'] = user_tasks.filter(due_date__lte=date.today()).filter(completed=False).order_by('due_date')[:5]
+
+    content['user_tasks'] = user_tasks[:5]
 
     return render(request, 'website/task_menu.html', content)
 

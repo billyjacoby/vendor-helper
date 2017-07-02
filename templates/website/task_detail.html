@@ -45,12 +45,15 @@
           </tr>
           <tr>
             <td><a class="btn btn-warning" href="{% url 'edit_task' task.pk %}">Edit Task</a></td>
-            <td class="text-right"><a class="btn btn-danger" href="{% url 'delete_task' task.pk %}">Delete Task</a></td>
+            <td class="text-right"><a class="btn btn-danger delete" href="{% url 'delete_task' task.pk %}" data-confirm="Are you sure to delete this task?">Delete Task</a></td>
           </tr>
         </table>
       </div>
     </div>
   </div>
-  <a class="btn btn-primary" href="{% url 'task_menu'%}">Task Menu</a>
+  <br />
+  <div class="col-sm-offset-3 col-sm-6">
+      <form><input style="padding-left:45%; padding-right:45%;"Type="button" class="btn btn-primary btn-lg" VALUE="Back" onClick="history.go(-1);return true;"></form>
+  </div>
 </div>
 {% endblock %}

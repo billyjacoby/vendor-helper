@@ -58,6 +58,11 @@
             <td class="text-left">You have not subscrubed to this incentive. To subscribe click <a href="{% url 'manage_incentive_subscription' incentive.pk %}">here</a>.</td>
             {% endif %}
           </tr>
+          <tr>
+            <td></td>
+            <td class="text-right"><a class="btn btn-success" href="{% url 'incentive_user_create' incentive.pk %}">Add Incentive</a></td>
+
+          </tr>
         </table>
       </div>
       {% if user_incentives %}
@@ -96,16 +101,18 @@
             <td class="text-left">{{item.payed}}</td>
           </tr>
           <tr>
-            <td><a class="btn btn-warning" href="{% url 'edit_user_incentive' incentive.pk item.pk%}">Edit Incentive</a></td>
-            <td><a class="btn btn-danger delete" href="{% url 'incentive_user_delete' incentive.pk item.pk %}" data-confirm="Are you sure to delete this item?">Delete Incentive</a></td>
+            <td class="text-left"><a class="btn btn-warning" href="{% url 'edit_user_incentive' incentive.pk item.pk%}">Edit Incentive</a></td>
+            <td class="text-right"><a class="btn btn-danger delete" href="{% url 'incentive_user_delete' incentive.pk item.pk %}" data-confirm="Are you sure to delete this incentive?">Delete Incentive</a></td>
           </tr>
           {% endfor %}
         </table>
       </div>
       {% endif %}
-      <a class="btn btn-warning" href="{% url 'incentive_user_create' incentive.pk %}">Add Incentive</a>
     </div>
   </div>
-  <a class="btn btn-primary" href="{% url 'user_dashboard' %}">Dashboard</a>
+  <br />
+  <div class="col-sm-offset-3 col-sm-6">
+      <form><input style="padding-left:45%; padding-right:45%;"Type="button" class="btn btn-primary btn-lg" VALUE="Back" onClick="history.go(-1);return true;"></form>
+  </div>
 </div>
 {% endblock %}

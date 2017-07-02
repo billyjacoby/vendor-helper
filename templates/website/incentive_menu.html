@@ -56,11 +56,16 @@
                 <center><strong>Subscribed & Due Soon</strong></center>
               </div>
                 <ul class="list-group">
+                  {% if subscribed_and_due %}
                   {% for incentive in subscribed_and_due %}
                   <li class="list-group-item"><a style="color:darkred;" href="{% url 'incentive_detail' incentive.pk%}">{{incentive}}</a></li>
-                  {% empty %}
-                  <li class="list-group-item">There are no upcoming incentives.</li>
                   {% endfor %}
+                  {% if subscribed_and_due_long %}
+                  <li class="list-group-item"><center><a class="btn-primary btn-sm btn" href="{% url 'incentive_list' 'subscribed-due-soon'%}">View More</center></a></li>
+                  {% endif %}
+                  {% else %}
+                  <li class="list-group-item">There are no upcoming incentives.</li>
+                  {% endif %}
                 </ul>
               </div>
           </div>
@@ -70,11 +75,13 @@
                 <center><strong>Completed - Not Payed</strong></center>
               </div>
               <ul class="list-group">
+                {% if completed_not_payed %}
                 {% for incentive in completed_not_payed %}
                 <li class="list-group-item"><a href="{% url 'incentive_detail' incentive.incentivemodel.pk %}">{{incentive}}</a></li>
-                {% empty %}
-                <li class="list-group-item">There are no upcoming incentives.</li>
                 {% endfor %}
+                {% else %}
+                <li class="list-group-item">There are no upcoming incentives.</li>
+                {% endif %}
               </ul>
               </div>
           </div>
