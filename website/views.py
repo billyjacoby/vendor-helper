@@ -155,10 +155,36 @@ def manage_incentive_subscription(request, incentive_pk):
         incentive.users_subscribed.add(request.user)
     return redirect("incentive_detail", incentive_pk=incentive_pk)
 
-def incentive_list(request):
+def incentive_list(request, incentive_type="all"):
     content = {}
-    content['incentive_list'] = IncentiveModel.objects.filter(end_date__gte=date.today()).order_by('end_date')
-    content['ended_incentive_list'] = IncentiveModel.objects.filter(end_date__lt=date.today()).order_by('end_date')
+    user = request.user
+    week_out = date.today() + timedelta(days = 7)
+    incentive_list = []
+    ended_incentive_list = []
+
+    if incentive_type == "subscribed":
+        incentive_list = IncentiveModel.objects.filter(end_date__gte=date.today()).filter(users_subscribed=user).order_by('end_date')
+        ended_incentive_list = IncentiveModel.objects.filter(end_date__lt=date.today()).filter(users_subscribed=user).order_by('end_date')
+    elif incentive_type == "due-soon":
+        incentive_list = IncentiveModel.objects.filter(end_date__range=[date.today(), week_out]).order_by('end_date')
+        ended_incentive_list = []
+        content['page_header'] = "List of incentives due before " + week_out.strftime("%B %d, %Y")
+    elif incentive_type == "past":
+        incentive_list = IncentiveModel.objects.filter(end_date__lt=date.today()).order_by('end_date')
+    elif incentive_type == "completed":
+        incentive_list = IncentiveModel.objects.filter(end_date__gte=date.today()).filter(userincentivemodel__completed=True).order_by('end_date')
+        ended_incentive_list = IncentiveModel.objects.filter(end_date__lt=date.today()).filter(userincentivemodel__completed=True).order_by('end_date')
+    elif incentive_type == "all":
+        incentive_list = IncentiveModel.objects.filter(end_date__gte=date.today()).order_by('end_date')
+        ended_incentive_list = IncentiveModel.objects.filter(end_date__lt=date.today()).order_by('end_date')
+    else:
+        return redirect('incentive_list' , incentive_type='all')
+
+    content = {
+    'incentive_list': incentive_list,
+    'incentive_type': incentive_type,
+    'ended_incentive_list': ended_incentive_list,
+    }
     return render(request, 'website/incentive_list.html', content)
 
 def incentive_user_create(request, incentive_pk):

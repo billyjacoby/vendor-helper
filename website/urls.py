@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^incentive/(?P<incentive_pk>[0-9]+)/delete/(?P<user_incentive_pk>[0-9]+)/$', views.incentive_user_delete, name="incentive_user_delete"),
     url(r'^incentive/(?P<incentive_pk>[0-9]+)/edit/(?P<user_incentive_pk>[0-9]+)/$', views.edit_user_incentive, name="edit_user_incentive"),
     url(r'^incentive/subscribe/(?P<incentive_pk>[0-9]+)/$', views.manage_incentive_subscription, name="manage_incentive_subscription"),
-    url(r'^incentive/list/$', views.incentive_list, name="incentive_list"),
+    url(r'^incentive/list/(?P<incentive_type>[-\w]+)$', views.incentive_list, name="incentive_list"),
     #
     url(r'^tasks/create/$', views.create_task, name="create_task"),
     url(r'^tasks/menu/$', views.task_menu, name="task_menu"),

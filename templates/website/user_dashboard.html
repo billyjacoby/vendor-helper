@@ -15,7 +15,7 @@
     <div class="col-sm-offset-1 col-sm-5">
       <div class="panel panel-default" style="padding:0px;">
         <div class="panel-heading">
-          <center><strong>Items Due by {{five_days}}</strong></center>
+          <center><strong>Items Due before {{five_days}}</strong></center>
         </div>
         <ul class="list-group" style="padding:5px;">
           {% if incentives_due_soon %}
@@ -23,7 +23,7 @@
             <li class="list-group-item"><center><a style="color:darkred;" href="{% url 'incentive_detail' item.pk %}"><strong>{{item|title}}</strong></a></center></li>
             {% endfor %}
             {% if incentive_long %}
-            <li class="list-group-item"><center><a style="color:darkred;" href="{% url 'incentive_list' %}"><strong>View More...</strong></a></center></li>
+            <li class="list-group-item"><center><a style="color:darkred;" href="{% url 'incentive_list' 'all' %}"><strong>View More...</strong></a></center></li>
             {% endif %}
           {% else %}
           <li class="list-group-item"><center>No Tasks Due Before {{five_days}}</center></li>
@@ -87,13 +87,13 @@
     <div class="col-sm-5">
       <div class="panel panel-default" style="padding:0px;">
         <div class="panel-heading">
-          <center><strong>Incentives (Newest First)</strong></center>
+          <center><strong>All Incentives (Newest First)</strong></center>
         </div>
         <ul class="list-group" style="padding:5px;">
           {% for item in incentive_by_date %}
           <li class="list-group-item"><center><a href="{% url 'incentive_detail' item.pk %}">{{item|title}}</a></center></li>
           {% endfor %}
-          <li class="list-group-item"><a href="{% url 'incentive_list' %}"style="display: block; width: 100%;"><center>View More...</center></a></li>
+          <li class="list-group-item"><a href="{% url 'incentive_list' 'all' %}"style="display: block; width: 100%;"><center>View More...</center></a></li>
         </ul>
       </div>
     </div>

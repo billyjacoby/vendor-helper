@@ -2,7 +2,11 @@
 
 {% block title %}Incentives{% endblock %}
 {% block page-header %}
-  List of All Incentives
+  {% if page_header %}
+    {{page_header}}
+  {% else %}
+  List of {{incentive_type}} incentives.
+  {% endif %}
 {% endblock %}
 
 {% block content %}
