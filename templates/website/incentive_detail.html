@@ -48,14 +48,14 @@
           </tr>
           <tr>
             <th>Description: </th>
-            <td class="text-left">{{incentive.description}}</td>
+            <td class="text-left">{{incentive.description|safe}}</td>
           </tr>
           <tr>
             <th>Subscribed: </th>
             {% if subscribed %}
             <td class="text-left">You have subscribed to this incentive. To unsubscribe click <a href="{% url 'manage_incentive_subscription' incentive.pk %}">here</a>.</td>
             {% else %}
-            <td class="text-left">You have not subscrubed to this incentive. To subscribe click <a href="{% url 'manage_incentive_subscription' incentive.pk %}">here</a>.</td>
+            <td class="text-left">You have not subscribed to this incentive. To subscribe click <a href="{% url 'manage_incentive_subscription' incentive.pk %}">here</a>.</td>
             {% endif %}
           </tr>
           <tr>
