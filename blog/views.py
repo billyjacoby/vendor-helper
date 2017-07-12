@@ -42,6 +42,6 @@ class CategorySingle(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CategorySingle, self).get_context_data(**kwargs)
         slug = kwargs.get('slug')
-        context['object_list'] = Blog.objects.filter(category__slug=slug)
+        context['object_list'] = Blog.objects.filter(category__slug=slug).order_by("-posted")
         context['subject'] = slug.title()
         return context
