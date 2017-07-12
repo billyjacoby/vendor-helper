@@ -36,7 +36,7 @@
           </tr>
           <tr>
             <th>Description: </th>
-            <td class="text-left">{{incentive.description}}</td>
+            <td class="text-left">{{incentive.description|safe}}</td>
           </tr>
             <!--
             <tr>
@@ -48,7 +48,7 @@
               <td class="text-left">{{user_incentive.completed}}</td>
             </tr>
           -->
-          <form method='post'>
+          <form method='post' enctype="multipart/form-data">
             {% csrf_token %}
             {% load crispy_forms_tags %}
             {{form.non_field_errors}}
@@ -82,6 +82,10 @@
             <tr>
               <th><label for="{{form.payed.id_for_label}}">Payed: </label></th>
               <td>{{form.payed}}</td>
+            </tr>
+            <tr>
+              <th><label for="{{form.image.id_for_label}}">Image to Upload: </label></th>
+              <td>{{form.image}}</td>
             </tr>
             <tr>
               <th></th>

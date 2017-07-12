@@ -9,3 +9,5 @@ from website.models import CompanyModel, IncentiveModel, TaskModel, UserIncentiv
 admin.site.register(CompanyModel)
 admin.site.register(IncentiveModel)
 admin.site.register(TaskModel)
+
+#admin.site.register(UserIncentiveModel)

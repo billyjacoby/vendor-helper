@@ -211,7 +211,7 @@ def incentive_user_create(request, incentive_pk):
     incentive = IncentiveModel.objects.get(pk=incentive_pk)
     content['incentive'] = incentive
     if request.method=='POST':
-        form = UserIncentiveModelForm(request.POST)
+        form = UserIncentiveModelForm(request.POST, request.FILES)
         content['form'] = form
         if form.is_valid():
             stock = form.save(commit=False)
@@ -234,7 +234,7 @@ def edit_user_incentive(request, incentive_pk, user_incentive_pk):
     content['incentive'] = incentive
     instance = UserIncentiveModel.objects.filter(owner=request.user).get(pk=user_incentive_pk)
     if request.method == 'POST':
-        form = UserIncentiveModelForm(request.POST)
+        form = UserIncentiveModelForm(request.POST, request.FILES)
         content['form'] = form
         if form.is_valid():
             stock = form.save(commit=False)

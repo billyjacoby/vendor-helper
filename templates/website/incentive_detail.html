@@ -101,6 +101,14 @@
             <td class="text-left">{{item.payed}}</td>
           </tr>
           <tr>
+            <th>Image: </th>
+            {% if item.image %}
+            <td class="text-left"><a target="_blank" href="{{item.image.url}}"><img style= "max-width: 75%;" src="{{item.image.url}}"/></a></td>
+            {% else %}
+            <td class="text-left">No Image Uploaded</td>
+            {% endif %}
+          </tr>
+          <tr>
             <td class="text-left"><a class="btn btn-warning" href="{% url 'edit_user_incentive' incentive.pk item.pk%}">Edit Incentive</a></td>
             <td class="text-right"><a class="btn btn-danger delete" href="{% url 'incentive_user_delete' incentive.pk item.pk %}" data-confirm="Are you sure to delete this incentive?">Delete Incentive</a></td>
           </tr>

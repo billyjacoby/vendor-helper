@@ -49,6 +49,7 @@ class UserIncentiveModel(models.Model):
     payed = models.BooleanField(blank=False, default=False)
     owner = models.ForeignKey(User, blank=False)
     payout = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    image = models.ImageField(upload_to="media/images/user_incentive_images/", blank=True )
 
     def save(self, *args, **kwargs):
         if not self.payout:

@@ -30,6 +30,7 @@ class UserIncentiveModelForm(forms.ModelForm):
         'completed',
         'payed',
         'date_completed',
+        'image'
         )
 
 class MonthForm(forms.Form):
