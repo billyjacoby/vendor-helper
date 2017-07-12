@@ -15,7 +15,7 @@ class SiteNewsPage(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(SiteNewsPage, self).get_context_data(**kwargs)
-        context['object_list'] = Blog.objects.filter(category__title__iexact='News')[:10]
+        context['object_list'] = Blog.objects.filter(category__title__iexact='News').order_by("-posted")[:10]
         context['subject'] = "News"
         return context
 
