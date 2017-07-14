@@ -30,7 +30,7 @@
               <td><a href="{% url 'incentive_detail' item.pk %}">Details</a></td>
               {% endif %}
               <td><a href="{% url 'incentive_detail' item.pk %}">{{item.end_date}}</a></td>
-              <td><a href="{% url 'incentive_detail' item.pk %}">{{item.description|truncatechars:20}}</a></td>
+              <td><a href="{% url 'incentive_detail' item.pk %}">{{item.description|truncatechars:20|safe}}</a></td>
             </tr>
             {% endfor %}
             {% if ended_incentive_list %}
