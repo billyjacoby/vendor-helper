@@ -1,17 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from datetime import date, timedelta, datetime
 from django.shortcuts import render, get_object_or_404, redirect
-from reg_extras.forms import UserProfileRegistrationForm, EditUserProfileForm, EditUserForm
-from website.forms import TaskModelForm, UserIncentiveModelForm, MonthForm
 from django.contrib.auth.models import User
 
-from datetime import date, timedelta, datetime
+from reg_extras.forms import UserProfileRegistrationForm, EditUserProfileForm, EditUserForm
+from website.forms import TaskModelForm, UserIncentiveModelForm, MonthForm
 
+from blog.models import Blog
 from website.models import IncentiveModel, TaskModel, UserIncentiveModel
+
 # Create your views here.
 def index(request):
     content = {}
+    content['newest_news_post'] = Blog.objects.filter(category__title__iexact='News').order_by('-posted')[0]
+    print content['newest_news_post']
     return render(request, 'website/index.html', content)
 
 def about(request):

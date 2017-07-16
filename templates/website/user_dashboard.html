@@ -65,6 +65,19 @@
     <div class="col-sm-offset-1 col-sm-5">
       <div class="panel panel-default" style="padding:0px;">
         <div class="panel-heading">
+          <center><strong>All Incentives (Newest First)</strong></center>
+        </div>
+        <ul class="list-group" style="padding:5px;">
+          {% for item in incentive_by_date %}
+          <li class="list-group-item"><center><a href="{% url 'incentive_detail' item.pk %}">{{item|title}}</a></center></li>
+          {% endfor %}
+          <li class="list-group-item"><center><a class="btn btn-primary btn-sm" href="{% url 'incentive_list' 'all' %}">View All</a></center></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="panel panel-default" style="padding:0px;">
+        <div class="panel-heading">
           <center><strong>Route Tools <small>*currently hosted on billyjacoby.com</small></strong></center>
         </div>
         <div class="list-group">
@@ -82,19 +95,6 @@
           <p class="list-group-item-text">view the total amount of cases going out for a specific route tomorrow</p>
         </a>
         </div>
-      </div>
-    </div>
-    <div class="col-sm-5">
-      <div class="panel panel-default" style="padding:0px;">
-        <div class="panel-heading">
-          <center><strong>All Incentives (Newest First)</strong></center>
-        </div>
-        <ul class="list-group" style="padding:5px;">
-          {% for item in incentive_by_date %}
-          <li class="list-group-item"><center><a href="{% url 'incentive_detail' item.pk %}">{{item|title}}</a></center></li>
-          {% endfor %}
-          <li class="list-group-item"><center><a class="btn btn-primary btn-sm" href="{% url 'incentive_list' 'all' %}">View All</a></center></li>
-        </ul>
       </div>
     </div>
   </div>

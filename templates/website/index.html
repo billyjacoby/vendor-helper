@@ -10,6 +10,9 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-9">
+        <ul class="list-group">
+          <li class="list-group-item"><center><a href="{{newest_news_post.get_absolute_url}}">{{newest_news_post.title|title}} - {{newest_news_post.posted|date}}</a></center></li>
+        </ul>
         <div class="panel panel-default" style="background-color:lightgrey;">
           <p class="lead text-center"><strong>
             Welcome to your own personal sales assistant! This website is designed to help you
