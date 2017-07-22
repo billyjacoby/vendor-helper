@@ -105,8 +105,9 @@ def incentive_menu(request):
     content['subscribed_and_due_long'] = subscribed_and_due_long
 
     user_incentives = UserIncentiveModel.objects.filter(owner=user)
-    completed_not_payed = user_incentives.filter(payed=False)
-    if completed_not_payed.count() > 5:
+    completed_not_payed = list(set(user_incentives.filter(payed=False)))
+
+    if len(completed_not_payed) > 5:
         completed_not_payed = completed_not_payed[:5]
         completed_not_payed_long = True
     else:
