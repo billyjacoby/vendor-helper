@@ -200,6 +200,9 @@ def incentive_list(request, incentive_type="all"):
     elif incentive_type == "all":
         incentive_list = IncentiveModel.objects.filter(end_date__gte=date.today()).order_by('end_date')
         ended_incentive_list = IncentiveModel.objects.filter(end_date__lt=date.today()).order_by('end_date')
+    elif incentive_type == "payed":
+        incentive_list = IncentiveModel.objects.filter(end_date__gte=date.today()).filter(userincentivemodel__payed=True).order_by('end_date')
+        ended_incentive_list = IncentiveModel.objects.filter(end_date__lt=date.today()).filter(userincentivemodel__payed=True).order_by('end_date')
     else:
         return redirect('incentive_list' , incentive_type='all')
 
