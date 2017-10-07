@@ -23,6 +23,9 @@ from registration.views import RegistrationView
 from reg_extras import regbackend
 from django.views.generic import RedirectView
 
+from graphene_django.views import GraphQLView
+
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^profile/password/$', RedirectView.as_view(url="/accounts/password/change/")),
@@ -31,6 +34,7 @@ urlpatterns = [
     #for account registration
     url(r'^accounts/register/$', regbackend.MyRegistrationView.as_view() ,name='registration_register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^graphql', GraphQLView.as_view(graphiql=True))
 ]
 
 """

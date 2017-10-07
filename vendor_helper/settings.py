@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #third party apps
     'crispy_forms',
+    'graphene_django',
     #my apps
     'reg_extras',
     'website',
@@ -195,6 +196,11 @@ r'^accounts/register/$',
 r'^about/$',
 r'^blog/$',
 )
+
+# Graohene settings:
+GRAPHENE = {
+    'SCHEMA': 'schema.schema'
+}
 
 try:
     from .local_settings import *
